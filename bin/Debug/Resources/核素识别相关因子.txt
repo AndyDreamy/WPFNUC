@@ -1,0 +1,3 @@
+P_isPeaksShown=True
+P_energyDifference=40
+P_recoDiff=10

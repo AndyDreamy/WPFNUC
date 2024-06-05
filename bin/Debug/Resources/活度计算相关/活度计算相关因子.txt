@@ -1,0 +1,6 @@
+P_volume=1.5
+P_msTime_S=20
+P_unit_CPS=cps
+P_unit_Act=bq
+P_time_BenDi=360
+P_offset_CPS=30

@@ -1,0 +1,5 @@
+P_minHeight=6
+P_maxWidth=300
+P_juanNum=10
+P_sigma=6
+P_smoothTimes=2

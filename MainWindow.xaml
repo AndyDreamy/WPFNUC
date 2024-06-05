@@ -1,0 +1,839 @@
+﻿<Window x:Class="核素识别仪.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:核素识别仪"
+        xmlns:class="clr-namespace:核素识别仪.集成的数据类" 
+        xmlns:其他功能类="clr-namespace:核素识别仪.其他功能类"
+        xmlns:chart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        xmlns:converters="clr-namespace:核素识别仪.Converters" xmlns:自定义控件="clr-namespace:核素识别仪.自定义控件"
+        mc:Ignorable="d"
+        x:Name="_this"
+        Title="核素识别仪" Height="700" Width="1212.5" DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Closing="Window_Closing"  Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" FontSize="16"
+        SizeChanged="_this_SizeChanged" 
+        >
+
+    <Window.Resources>
+
+        <!--#region 定义按钮样式 -->
+        <Style TargetType="Button" x:Key="ButtonStyle1">
+            <!--<Setter Property="Foreground" Value="Black"/>-->
+            <!--修改模板属性-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--控件模板-->
+                    <ControlTemplate TargetType="Button">
+
+                        <!--背景border-->
+                        <Border x:Name="backBorder" Opacity="1" CornerRadius="6" >
+                            <!--CornerRadius圆角-->
+
+                            <!--背景色，无边框，一个渐变色，颜色与按钮的background有关-->
+                            <Border.Background>
+                                <!--渐变色-->
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1.5">
+                                    <GradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="White" Offset="0"/>
+                                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0.4"/>
+                                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0.054"/>
+                                            <GradientStop Color="White" Offset="1"/>
+                                        </GradientStopCollection>
+                                    </GradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+
+                            <!--前景色及边框-->
+                            <Border x:Name="foreBorder" BorderThickness="1" CornerRadius="6" BorderBrush="#5555">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#6FFF" Offset="0.5"/>
+                                                <GradientStop Color="#00FFFFFF" Offset="0.51"/>
+                                            </GradientStopCollection>
+                                        </GradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <!--<Border.BitmapEffect>
+                                    <OuterGlowBitmapEffect GlowSize="15" GlowColor="#FFFFD90C" />
+                                </Border.BitmapEffect>-->
+
+                                <!--按钮内容-->
+
+                                <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}">
+                                    <ContentPresenter.BitmapEffect>
+                                        <DropShadowBitmapEffect Color="#000" Direction="326" ShadowDepth="1" Softness="0.1" Opacity="0.065" />
+                                    </ContentPresenter.BitmapEffect>
+                                </ContentPresenter>
+                            </Border>
+                        </Border>
+
+                        <!--触发器，内含动画-->
+                        <ControlTemplate.Triggers>
+                            <!--鼠标移入移出-->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation To="#AFFF" BeginTime="0:0:0" Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                                            <ColorAnimation To="#3FFF" BeginTime="0:0:0" Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <!--按钮按下弹起-->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation To="#3AAA" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                                            <ColorAnimation To="#2111" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <!--按钮失效-->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#B444"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation To="#D555" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />
+                                            <ColorAnimation To="#CEEE" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                                            <ColorAnimation To="#CDDD" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(ContentPresenter.BitmapEffect).(DropShadowBitmapEffect.Opacity)" />
+                                            <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(ContentPresenter.BitmapEffect).(DropShadowBitmapEffect.Direction)" />
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(ContentPresenter.BitmapEffect).(DropShadowBitmapEffect.Color)" />
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Converters -->
+        <converters:BoolToOthersConverter x:Key="btoc_Fei" Function="toBoolFei"/>
+        <converters:BoolToOthersConverter x:Key="btoc_Visibility" Function="toVisibility"/>
+        <converters:DoubleToFormatConverter x:Key="dtfc_2" Function="holdXiaoShu" P_holdNum="2"/>
+        <converters:DoubleToFormatConverter x:Key="dtfc_0" Function="holdXiaoShu" P_holdNum="0"/>
+        <!--#endregion-->
+
+        <!--#region 用于Binding的全局变量 -->
+
+        <class:AutoRun x:Key="autoRun" />
+        <class:ReceDatas x:Key="receDatas"/>
+        <class:HuoDu x:Key="huoDu"/>
+        <class:Recognize x:Key="reco"/>
+        <其他功能类:AndySeekPeak x:Key="andySeekPeak"/>
+
+        <!--#endregion-->
+
+        <Thickness x:Key="bottom1">0,0,0,15</Thickness>
+        <Thickness x:Key="margin_right1">10,0</Thickness>
+        <Thickness x:Key="bt_Zoom_Right0">0,0,10,0</Thickness>
+        <Thickness x:Key="marginRight2">0,0,20,0</Thickness>
+
+    </Window.Resources>
+
+    <Window.ContextMenu>
+        <ContextMenu MenuItem.Click="menu_WindowRightButton" Name="menu_Window"
+                     >
+            <MenuItem Header="设置" />
+            <MenuItem Header="隐藏控制台"/>
+            <MenuItem Header="显示控制台"/>
+            <MenuItem Header="测试1"/>
+            <MenuItem Header="测试2"/>
+            <MenuItem Header="测试3"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+
+    <Grid>
+
+        <!--<Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>-->
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region 单独的活度测量界面 -->
+        <!--<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="73"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Margin="10,0">
+
+                <StackPanel  Orientation="Horizontal" DataContext="{DynamicResource autoRun}" Margin="0">
+
+                    <Button Width="81" Click="开始测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Margin="{DynamicResource marginRight2}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/开始.png" Width="23" Margin="0,0,3,0" />
+                            <Label Content="采集" Padding="0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button  Width="81" Click="停止测量_Click"
+                        IsEnabled="{Binding P_isReading}" Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Margin="{DynamicResource marginRight2}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/停止.png" Width="23" Margin="0,0,3,0" />
+                            <Label Content="停止" Padding="0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Width="81" Click="清空测量_Click"   IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Margin="{DynamicResource marginRight2}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/清除.png" Width="23" Margin="0,0,3,0" />
+                            <Label Content="清空" Padding="0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+                <Button Width="112" Click="打开核素识别结果_Click"  Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/峰值.png" Width="23" Margin="0,0,3,0" />
+                        <Label Content="核素识别" Padding="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="98" Click="打开设置核素库界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}" Height="45">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/核素.png" Width="23" Margin="0,0,3,0" />
+                        <Label Content="核素库" Padding="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Content="核素活度刻度因子" Click="打开核素活度刻度因子界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="160" Margin="{DynamicResource marginRight2}"/>
+                <Button Content="选择要识别的核素" Margin="0" Click="打开选择人为设定核素选择界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="153"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0">
+
+                <DataGrid x:Name="dg_HuoDuResult" Margin="10" AutoGenerateColumns="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="688" FontSize="20" CanUserAddRows="False" CanUserDeleteRows="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="核素名称" Binding="{Binding P_nucName}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                        <DataGridTextColumn Header="道址" Binding="{Binding P_channel}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                        <DataGridTextColumn Header="计数率(cps)" Binding="{Binding P_cps}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                        <DataGridTextColumn Header="活度(bq)" Binding="{Binding P_act}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                    </DataGrid.Columns>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+
+                <Grid Width="302">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="202*"/>
+                        <RowDefinition Height="213*"/>
+                        <RowDefinition Height="0*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Header="测量信息" Grid.Row="0" BorderBrush="Black" Margin="10">
+                        <StackPanel Orientation="Vertical" Margin="10,25">
+                            <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}"  DataContext="{DynamicResource autoRun}">
+                                <Label Content="开始时间：" VerticalAlignment="Center" Width="110"/>
+                                <TextBox Text="{Binding P_startTimeStr,Mode=OneWay}" MinWidth="65" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" Width="140" TextWrapping="Wrap" Height="50" IsReadOnly="True"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="{DynamicResource bottom1}">
+                                <Label Content="CPS：" VerticalAlignment="Center" Width="110"/>
+                                <TextBox Text="{Binding Cps_Show,Converter={StaticResource dtfc_2},Mode=OneWay}"
+                                             MinWidth="104" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" Width="140" IsReadOnly="True"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" DataContext="{DynamicResource receDatas}">
+                                <Label Content="实时间(s)：" VerticalAlignment="Center" Width="110"/>
+                                <TextBox Text="{Binding P_measuredTime,Converter={StaticResource dtfc_0},Mode=OneWay}"  MinWidth="79" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" Width="140" IsReadOnly="True"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="参数设置" Grid.Row="1" BorderBrush="Black" Margin="10">
+
+                        <StackPanel Orientation="Vertical" DataContext="{DynamicResource huoDu}" Margin="10,25">
+
+                            <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
+                                <Label Content="体积(L)：" VerticalAlignment="Center" Width="110"/>
+                                <TextBox Text="{Binding P_volume}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="140" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
+                                <Label Content="测量时间(s)：" VerticalAlignment="Center" Width="110"/>
+                                <TextBox Text="{Binding P_msTime_S}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="140" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
+                                <Label Content="活度单位：" VerticalAlignment="Center" Width="110"/>
+                                <ComboBox SelectedIndex="0" Text="{Binding P_unit_Act,Mode=TwoWay}" Width="140" HorizontalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle_Andy}">
+                                    <ComboBox.Background>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF0F0F0" Offset="1"/>
+                                            <GradientStop Color="White"/>
+                                        </LinearGradientBrush>
+                                    </ComboBox.Background>
+                                    <ComboBoxItem Content="bq"/>
+                                    <ComboBoxItem Content="bq/l"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="计数率单位：" VerticalAlignment="Center" Width="110"/>
+                                <ComboBox SelectedIndex="0" Text="{Binding P_unit_CPS,Mode=TwoWay}" Width="140" HorizontalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle_Andy}">
+                                    <ComboBox.Background>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF0F0F0" Offset="1"/>
+                                            <GradientStop Color="White"/>
+                                        </LinearGradientBrush>
+                                    </ComboBox.Background>
+                                    <ComboBoxItem Content="cps"/>
+                                    <ComboBoxItem Content="cpm"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </GroupBox>
+
+                </Grid>
+
+
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"  Grid.Row="2" HorizontalAlignment="Center">
+
+
+
+            </StackPanel>
+
+            <GroupBox x:Name="gb_SelectSetChannelNuc" Header="选择识别的核素" Visibility="Hidden" BorderBrush="Black" Grid.RowSpan="2" Background="#FFE2FCFF"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="328">
+                <StackPanel x:Name="sp_SelectSetChannelNuc" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            </GroupBox>
+
+        </Grid>-->
+        <!--#endregion-->
+
+        <TabControl Visibility="Visible">
+
+            <TabItem Header="谱图采集">
+
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="528*"/>
+                            <RowDefinition Height="53*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <StackPanel  Orientation="Horizontal" DataContext="{DynamicResource autoRun}">
+
+                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Click="开始测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/开始.png" Width="23" Margin="0,0,3,0" />
+                                            <Label Content="采集" Padding="0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <Button  Width="81" Margin="{DynamicResource margin_right1}" Click="停止测量_Click" IsEnabled="{Binding P_isReading}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/停止.png" Width="23" Margin="0,0,3,0" />
+                                            <Label Content="停止" Padding="0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <Button x:Name="bt_清空" Width="81" Margin="{DynamicResource margin_right1}" Click="清空测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/清除.png" Width="23" Margin="0,0,3,0"/>
+                                            <Label Content="清空" Padding="0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                </StackPanel>
+
+                                <Button x:Name="bt_核素识别" Width="112" Margin="{DynamicResource margin_right1}" Click="打开核素识别结果_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/峰值.png" Width="23" Margin="0,0,3,0" />
+                                        <Label Content="核素识别" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button x:Name="bt_核素库" Width="98" Margin="{DynamicResource margin_right1}" Click="打开设置核素库界面_Click"
+                         Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/核素.png" Width="23" Margin="0,0,3,0" />
+                                        <Label Content="核素库" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button x:Name="bt_手动稳峰" Content="手动稳峰" Width="81" Margin="{DynamicResource margin_right1}" Click="bt_ManualStabPeak_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
+
+                                <Button x:Name="bt_打开文件" Width="112" Margin="{DynamicResource margin_right1}" Click="bt_ReadSpe_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/打开.png" Width="23" Margin="0,0,3,0" />
+                                        <Label Content="打开文件" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="bt_保存文件" Width="112" Margin="{DynamicResource margin_right1}" Click="bt_WriteSpe_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/保存.png" Width="23" Margin="0,0,3,0" />
+                                        <Label Content="保存文件" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button x:Name="bt_串口设置" Visibility="Collapsed" Content="串口设置" Margin="10" Click="打开串口设置界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Width="90" Height="36"/>
+
+                            </StackPanel>
+
+                            <!--缩放相关-->
+                            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+
+                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_ChartZoom_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/框选放大.png" Width="30" />
+                                        <!--<Label Content="区域放大" Padding="0" VerticalAlignment="Center"/>-->
+                                    </StackPanel>
+                                </Button>
+                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_ChartZoomReset_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/缩放重置.png" Width="22" />
+                                        <!--<Label Content="缩放重置" Padding="0" VerticalAlignment="Center"/>-->
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_XZoomUp_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe617;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Padding="5,1" Background="{DynamicResource Color_Button}"/>
+                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_XZoomDown_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe600;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
+                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_YZoomUp_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe618;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
+                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_YZoomDown_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe619;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" RenderTransformOrigin="0.5,0.5"/>
+
+                                <CheckBox Content="显示平滑曲线" IsChecked="{Binding P_ifShowSmooth}" DataContext="{DynamicResource andySeekPeak}" MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Button Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_SelectROI_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/峰谷分析.png" Width="30" />
+                                        <Label Content="ROI计算" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_OpenFittingWindow_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/刻度.png" Width="30" />
+                                        <Label Content="能量刻度" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+                            <!--测量信息-->
+                            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+
+                                <Label Content="开始时间：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_startTimeStr,Mode=OneWay}" DataContext="{DynamicResource autoRun}" MinWidth="155" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+                                <StackPanel x:Name="sp_ReceData" Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="8,0,0,0">
+
+                                    <Label Content="实时间(s)：" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding P_measuredTime,Converter={StaticResource dtfc_0}}"
+                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+                                </StackPanel>
+                            </StackPanel>
+
+                        </StackPanel>
+
+
+                        <!--<interop:AirspaceDecorator AirspaceMode="Redirect" IsInputRedirectionEnabled="True" IsOutputRedirectionEnabled="True" Margin="10" Grid.Row="1" 
+                                                   >
+                            <WindowsFormsHost x:Name="wfhost_Chart" Margin="0">
+                                <chart:Chart x:Name="chart_Putu" Dock="Fill" />
+                            </WindowsFormsHost>
+                        </interop:AirspaceDecorator>-->
+
+                        <!--原来的-->
+                        <WindowsFormsHost x:Name="wfhost_Chart"  Margin="10" Grid.Row="1" Visibility="Visible"  >
+                            <chart:Chart x:Name="chart_Putu"   />
+                        </WindowsFormsHost>
+
+                        <StackPanel Orientation="Horizontal"  Grid.Row="2" HorizontalAlignment="Center">
+
+                            <StackPanel x:Name="sp_ChartInfo" Grid.Row="2" Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="8,0,0,0">
+
+                                <Label Content="道址：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedChannel,Mode=TwoWay}"
+                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+
+                                <Label Content="计数：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedCount,Mode=OneWay}"
+                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+                                <Label Content="能量：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedEnergy,Mode=OneWay}"
+                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+                            </StackPanel>
+
+                            <StackPanel  Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="8,0,0,0">
+
+                                <Label Content="CPS：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding Cps_Show,Converter={StaticResource dtfc_2}}"
+                         MinWidth="104" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+                                <Label Content="剂量率：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_rateStr}" Foreground="{Binding P_rateColor}"   MinWidth="104" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <!--稳峰的小窗口-->
+                        <!--<StackPanel x:Name="sp_StabPeak" DataContext="{DynamicResource aStabPeak}" Orientation="Vertical" Background="#FFA2FFDD" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Row="1">
+                    <Label Content="{Binding P_currentState}" />
+                    <Grid>
+                        <ProgressBar x:Name="progress_StabPeak" Margin="3" Width="147"  Height="24" Foreground="#FF54F036"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="{Binding ElementName=progress_StabPeak,Path=Value}" />
+                            <Label Content="/" />
+                            <Label Content="{Binding ElementName=progress_StabPeak,Path=Maximum}" />
+                            <Label Content="s" />
+                        </StackPanel>
+                    </Grid>
+                   </StackPanel>-->
+
+                    </Grid>
+
+                </ScrollViewer>
+
+            </TabItem>
+
+            <TabItem x:Name="tab_测量活度" Header="测量活度" FontSize="17">
+
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="73"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="10,0">
+
+                        <StackPanel  Orientation="Horizontal" DataContext="{DynamicResource autoRun}" Margin="0">
+
+                            <Button Width="81" Click="开始测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Margin="{DynamicResource marginRight2}"
+                                    >
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/开始.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="采集" Padding="0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button  Width="81" Click="停止测量_Click"
+                        IsEnabled="{Binding P_isReading}" Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Margin="{DynamicResource marginRight2}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/停止.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="停止" Padding="0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Width="81" Click="清空测量_Click"   IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Margin="{DynamicResource marginRight2}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/清除.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="清空" Padding="0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+
+                        <Button Width="112" Click="打开核素识别结果_Click"  Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Images/峰值.png" Width="23" Margin="0,0,3,0" />
+                                <Label Content="核素识别" Padding="0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Width="98" Click="打开设置核素库界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}" Height="45" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Images/核素.png" Width="23" Margin="0,0,3,0" />
+                                <Label Content="核素库" Padding="0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Content="核素活度刻度因子" Click="打开核素活度刻度因子界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="160" Margin="{DynamicResource marginRight2}"/>
+                        <Button Content="选择要识别的核素" Margin="{DynamicResource marginRight2}" Click="打开选择人为设定核素选择界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="153"/>
+                        <Button Content="本底测量" Margin="0" Click="bt_ManualBenDiMS_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="90"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0">
+
+                        <DataGrid x:Name="dg_HuoDuResult" Margin="10" AutoGenerateColumns="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="682" FontSize="20" CanUserAddRows="False" CanUserDeleteRows="False" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="核素名称" Binding="{Binding P_nucName}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                                <DataGridTextColumn Header="道址" Binding="{Binding P_channel}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                                <DataGridTextColumn Header="计数率(cps)" Binding="{Binding P_cps}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                                <DataGridTextColumn Header="活度(bq)" Binding="{Binding P_act}" ElementStyle="{StaticResource CenterTextBlock}" Width="170"/>
+                            </DataGrid.Columns>
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                        </DataGrid>
+
+                        <Grid Width="302">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="202*"/>
+                                <RowDefinition Height="213*"/>
+                                <RowDefinition Height="0*"/>
+                            </Grid.RowDefinitions>
+
+                            <GroupBox Header="测量信息" Grid.Row="0" BorderBrush="Black" Margin="10">
+                                <StackPanel Orientation="Vertical" Margin="10,25">
+                                    <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}"  DataContext="{DynamicResource autoRun}">
+                                        <Label Content="开始时间：" VerticalAlignment="Center" Width="110"/>
+                                        <TextBox Text="{Binding P_startTimeStr,Mode=OneWay}" MinWidth="65" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" Width="140" TextWrapping="Wrap" Height="50"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="{DynamicResource bottom1}">
+                                        <Label Content="CPS：" VerticalAlignment="Center" Width="110"/>
+                                        <TextBox Text="{Binding Cps_Show,Converter={StaticResource dtfc_2}}"
+                                             MinWidth="104" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" Width="140"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" DataContext="{DynamicResource receDatas}">
+                                        <Label Content="实时间(s)：" VerticalAlignment="Center" Width="110"/>
+                                        <TextBox Text="{Binding P_measuredTime,Converter={StaticResource dtfc_0}}"  MinWidth="79" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" Width="140"/>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="参数设置" Grid.Row="1" BorderBrush="Black" Margin="10">
+
+                                <StackPanel Orientation="Vertical" DataContext="{DynamicResource huoDu}" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
+                                        <Label Content="体积(L)：" VerticalAlignment="Center" Width="110"/>
+                                        <TextBox Text="{Binding P_volume}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="140" />
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
+                                        <Label Content="测量时间(s)：" VerticalAlignment="Center" Width="110"/>
+                                        <TextBox Text="{Binding P_msTime_S}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="140" />
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
+                                        <Label Content="活度单位：" VerticalAlignment="Center" Width="110"/>
+                                        <ComboBox SelectedIndex="0" Text="{Binding P_unit_Act,Mode=TwoWay}" Width="140" HorizontalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle_Andy}">
+                                            <ComboBox.Background>
+                                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                                    <GradientStop Color="#FFF0F0F0" Offset="1"/>
+                                                    <GradientStop Color="White"/>
+                                                </LinearGradientBrush>
+                                            </ComboBox.Background>
+                                            <ComboBoxItem Content="bq"/>
+                                            <ComboBoxItem Content="bq/l"/>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
+                                        <Label Content="计数率单位：" VerticalAlignment="Center" Width="110"/>
+                                        <ComboBox SelectedIndex="0" Text="{Binding P_unit_CPS,Mode=TwoWay}" Width="140" HorizontalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle_Andy}">
+                                            <ComboBox.Background>
+                                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                                    <GradientStop Color="#FFF0F0F0" Offset="1"/>
+                                                    <GradientStop Color="White"/>
+                                                </LinearGradientBrush>
+                                            </ComboBox.Background>
+                                            <ComboBoxItem Content="cps"/>
+                                            <ComboBoxItem Content="cpm"/>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <Label Content="本底测量时间(s)：" VerticalAlignment="Center"/>
+                                        <TextBox Text="{Binding P_time_BenDi}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" Height="31.5" Width="102"/>
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </GroupBox>
+
+                        </Grid>
+
+
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"  Grid.Row="2" HorizontalAlignment="Center">
+
+
+
+                    </StackPanel>
+
+                    <GroupBox x:Name="gb_SelectSetChannelNuc" Header="选择识别的核素" Visibility="Hidden" BorderBrush="Black" Grid.RowSpan="2" Background="#FFE2FCFF"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="328">
+                        <StackPanel x:Name="sp_SelectSetChannelNuc" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    </GroupBox>
+
+                </Grid>
+
+            </TabItem>
+
+        </TabControl>
+
+        <!--设置界面-->
+        <Grid Grid.Row="1" Grid.Column="1" Width="300" x:Name="grid_Settings" Visibility="Visible">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                <WrapPanel Orientation="Horizontal">
+
+                    <GroupBox Header="谱图相关参数" BorderBrush="Black" Margin="5">
+
+                        <WrapPanel Orientation="Horizontal" Margin="10">
+
+                            <Button Content="串口设置" Margin="10" Click="打开串口设置界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Width="91" Height="32"/>
+
+                            <WrapPanel x:Name="sp_SeekPeak" Grid.Row="2" Orientation="Horizontal" DataContext="{DynamicResource andySeekPeak}" Margin="0,0,0,0">
+                                <Label Content="寻峰相关********************" Margin="0,8,0,0" Width="232"/>
+                                <Label Content="卷积数量：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_juanNum}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="σ：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_sigma}"
+                         MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="最小峰高：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_minHeight}"
+                         MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="最大峰宽：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_maxWidth}"
+                         MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="滤波次数：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_smoothTimes}"
+                         MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <CheckBox Content="高斯滤波？" IsChecked="{Binding P_whichSmooth}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <CheckBox Content="显示平滑后的曲线?" IsChecked="{Binding P_ifShowSmooth}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+                            </WrapPanel>
+
+                            <WrapPanel  Orientation="Horizontal" DataContext="{DynamicResource reco}" Margin="0,0,0,0">
+                                <Label Content="核素识别相关********************" Margin="0,8,0,0" Width="232"/>
+
+                                <Label Content="置信度因子(越大置信度越接近1)：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_energyDifference}" DataContext="{DynamicResource reco}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="核素识别能量绝对差值：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_recoDiff}"   MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <CheckBox Content="是否显示未识别的核素" IsChecked="{Binding P_isPeaksShown}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+
+                            </WrapPanel>
+
+                            <Label Content="其他*************************" Margin="0,8,0,0" Width="232"/>
+                            <CheckBox Content="开机稳峰" IsChecked="{Binding P_sw_StabilizePeak}" VerticalAlignment="Center"/>
+                            <CheckBox Content="开机预热" IsChecked="{Binding P_sw_WarmUp}" VerticalAlignment="Center"/>
+                            <CheckBox Content="开机测量本底" IsChecked="{Binding P_sw_BenDiCPS}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <CheckBox Content="显示右键菜单？" IsChecked="{Binding P_isShowRightMenu,ElementName=_this}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+                            <Label Content="选择连接对象："/>
+                            <ComboBox x:Name="cb_MCUType" Width="88" Text="{Binding P_MCU,ElementName=_this}" VerticalContentAlignment="Center"/>
+
+                            <WrapPanel Orientation="Horizontal" DataContext="{DynamicResource receDatas}" >
+
+                                <Label Content="滑动平均数组个数：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_num_MA}"   MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="谱图左截止道址数：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding LeftCutOff}" MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="一级阈值：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_threshold1}" MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <Label Content="二级阈值：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_threshold2}" MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                                <CheckBox Content="是否开启报警声" IsChecked="{Binding P_isAlarmSound}" VerticalAlignment="Center"/>
+
+                            </WrapPanel>
+
+                        </WrapPanel>
+
+                    </GroupBox>
+
+                    <GroupBox Header="活度计算相关参数" BorderBrush="Black" Margin="5" DataContext="{DynamicResource huoDu}">
+
+                        <WrapPanel Orientation="Horizontal" Margin="10">
+
+                            <Label Content="本底测量时间(s)：" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding P_time_BenDi}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                            <Label Content="计数率计算左右偏移量(整数)：" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding P_offset_CPS}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+                            <CheckBox Content="开启活度测量？" IsChecked="{Binding P_isHuoDu,ElementName=_this}"  MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
+
+
+                        </WrapPanel>
+
+                    </GroupBox>
+
+                </WrapPanel>
+
+            </ScrollViewer>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

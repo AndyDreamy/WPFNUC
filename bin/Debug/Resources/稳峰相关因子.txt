@@ -1,0 +1,6 @@
+P_KChannel_Scale=1251
+P_KChannel_Real=1250
+P_KJudgeMax=1400
+P_KJudgeMin=1100
+P_time_StabPeak=20
+P_time_WarmUp=200

@@ -1,0 +1,7 @@
+P_isShowRightMenu=False
+P_isHuoDu=False
+P_sw_BenDiCPS=False
+P_sw_StabilizePeak=False
+P_sw_WarmUp=False
+P_isHideForLiuTao=False
+P_MCUIndex=1

@@ -1,0 +1,35 @@
+﻿<Window x:Class="核素识别仪.小窗口.W_ROIResult"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:核素识别仪.小窗口"
+        mc:Ignorable="d" Topmost="True" Closing="Window_Closing"
+        Title="ROI分析结果" Height="295" Width="272.5" FontSize="16" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="51"/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="tb_Note" Text="请在谱图上框选需要分析的范围" Margin="10" IsReadOnly="True" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button  Click="bt_SelectROI_Click"  Height="31" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="115" Margin="0,0,7,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/框选放大.png" Width="30" />
+                    <Label Content="选择区域" Padding="0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button  Click="bt_CalculateROI_Click"  Height="31" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="95">
+                <StackPanel Orientation="Horizontal">
+                    <!--<Image Source="/Images/框选放大.png" Width="30" />-->
+                    <Label Content="计算" Padding="0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="核素识别仪.自定义控件.CTr_NucFactors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:核素识别仪.自定义控件"
+             mc:Ignorable="d" d:DesignWidth="800" Height="auto">
+    <UserControl.Resources>
+        <Thickness x:Key="margin2">10,0,10,12</Thickness>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+           
+            
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin1}">
+                <Label Content="第一段:" VerticalContentAlignment="Center"/>
+                <Label Content="CPS=" VerticalContentAlignment="Center"/>
+                <Label Content="0" VerticalContentAlignment="Center"/>
+                <Label Content="~" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding P_1To2}" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin2}">
+                <Label Content="A0=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_A0}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+                <Label Content="B0=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_B0}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+                <Label Content="C0=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_C0}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin1}">
+                <Label Content="第二段:" VerticalContentAlignment="Center"/>
+                <Label Content="CPS=" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding P_1To2}" VerticalContentAlignment="Center"/>
+                <Label Content="~" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding P_2To3}" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin2}">
+                <Label Content="A1=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_A1}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+                <Label Content="B1=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_B1}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+                <Label Content="C1=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_C1}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin1}">
+                <Label Content="第三段:" VerticalContentAlignment="Center"/>
+                <Label Content="CPS=" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding P_2To3}" VerticalContentAlignment="Center"/>
+                <Label Content="~" VerticalContentAlignment="Center"/>
+                <Label Content="∞" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin2}">
+                <Label Content="A2=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_A2}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+                <Label Content="B2=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_B2}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+                <Label Content="C2=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_C2}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin1}">
+                <Label Content="分段点(CPS):" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="{DynamicResource margin2}">
+                <Label Content="一、二段分段点=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_1To2}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+                <Label Content="二、三段分段点=" VerticalContentAlignment="Center" Padding="5,5,0,5"/>
+                <TextBox Text="{Binding P_2To3}" Width="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
