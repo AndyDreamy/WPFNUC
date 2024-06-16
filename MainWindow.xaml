@@ -170,7 +170,7 @@
     </Window.Resources>
 
     <Window.ContextMenu>
-        <ContextMenu MenuItem.Click="menu_WindowRightButton" Name="menu_Window"
+        <ContextMenu MenuItem.Click="menu_WindowRightButton" Name="menu_Window" Visibility="Visible"
                      >
             <MenuItem Header="设置" />
             <MenuItem Header="隐藏控制台"/>
@@ -553,7 +553,7 @@
 
             </TabItem>
 
-            <TabItem x:Name="tab_测量活度" Header="测量活度" FontSize="17">
+            <TabItem x:Name="tab_测量活度" Header="测量活度" FontSize="16">
 
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
@@ -725,6 +725,104 @@
 
                 </Grid>
 
+            </TabItem>
+
+            <TabItem Name="tab_AlphaCPS" Header="α计数率监测" DataContext="{Binding DataContextAlphaCPS}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="528*"/>
+                            <RowDefinition Height="0*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Vertical">
+
+                            <StackPanel Orientation="Horizontal" Margin="5,0">
+
+                                <StackPanel  Orientation="Horizontal">
+
+                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_StartCollecting}" IsEnabled="{Binding IsCollecting,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/开始.png" Width="23" Margin="0,0,3,0" />
+                                            <Label Content="采集" Padding="0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <Button  Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_StopCollecting}" IsEnabled="{Binding IsCollecting}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/停止.png" Width="23" Margin="0,0,3,0" />
+                                            <Label Content="停止" Padding="0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_ClearCPSData}" IsEnabled="{Binding IsCollecting,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/清除.png" Width="23" Margin="0,0,3,0"/>
+                                            <Label Content="清空" Padding="0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_OpenSerialPortSetting}" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="串口设置" Padding="0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                </StackPanel>
+
+                                <!--缩放相关-->
+                                <StackPanel Orientation="Horizontal" Margin="0">
+
+                                    <Button Width="39" Command="{Binding Cmd_ChartZoom}"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/框选放大.png" Width="30" />
+                                            <!--<Label Content="区域放大" Padding="0" VerticalAlignment="Center"/>-->
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Width="39" Command="{Binding Cmd_ChartZoomReset}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/缩放重置.png" Width="22" />
+                                            <!--<Label Content="缩放重置" Padding="0" VerticalAlignment="Center"/>-->
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Width="39" Command="{Binding Cmd_XZoomUp}" FontFamily="{StaticResource font_Zoom}" Content="&#xe617;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Padding="5,1" Background="{DynamicResource Color_Button}" Margin="10,0"/>
+                                    <Button Width="39" Command="{Binding Cmd_XZoomDown}" FontFamily="{StaticResource font_Zoom}" Content="&#xe600;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0"/>
+                                    <Button Width="39" Command="{Binding Cmd_YZoomUp}" FontFamily="{StaticResource font_Zoom}" Content="&#xe618;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0"/>
+                                    <Button Width="39" Command="{Binding Cmd_YZoomDown}" FontFamily="{StaticResource font_Zoom}" Content="&#xe619;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" RenderTransformOrigin="0.5,0.5" Margin="10,0"/>
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <!--测量信息-->
+                            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+
+                                <Label Content="开始时间：" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_startTimeStr,Mode=OneWay}"  MinWidth="155" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+
+                                    <Label Content="采集时间(s)：" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding P_measuredTime,Converter={StaticResource dtfc_0}}"
+                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
+
+                                    <Label Content="CPS阈值设置：" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding CpsThreshold,UpdateSourceTrigger=PropertyChanged}"
+                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" />
+
+                                </StackPanel>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <WindowsFormsHost x:Name="wfhost_ChartAlphaCPS"  Margin="10" Grid.Row="1" Visibility="Visible"  >
+                            <chart:Chart x:Name="chart_AlphaCPS"   />
+                        </WindowsFormsHost>
+
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
 
         </TabControl>

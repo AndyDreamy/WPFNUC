@@ -74,6 +74,7 @@
     <Compile Include="其他功能类\AndyCommon.cs" />
     <Compile Include="其他功能类\AndyFileRW.cs" />
     <Compile Include="其他功能类\AndyGlobalErrorHandle.cs" />
+    <Compile Include="其他功能类\AndyModbusRTU.cs" />
     <Compile Include="其他功能类\AndyPlaySound.cs" />
     <Compile Include="其他功能类\AndySeekPeak.cs" />
     <Compile Include="其他功能类\AndyStabilizePeak.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="其他功能类\ConsoleHelper.cs" />
     <Compile Include="其他功能类\CopyHelper.cs" />
     <Compile Include="其他功能类\FittingFuntion.cs" />
+    <Compile Include="其他功能类\MVVMCommon\DelegateCommand.cs" />
     <Compile Include="小窗口\SerialPortSetting.xaml.cs">
       <DependentUpon>SerialPortSetting.xaml</DependentUpon>
     </Compile>
@@ -102,6 +104,7 @@
     <Compile Include="小窗口\W_StabilizePeak.xaml.cs">
       <DependentUpon>W_StabilizePeak.xaml</DependentUpon>
     </Compile>
+    <Compile Include="拓展功能\AlphaCPS\AlphaCPS.cs" />
     <Compile Include="拟合助手_WPF\W_Fitting.xaml.cs">
       <DependentUpon>W_Fitting.xaml</DependentUpon>
     </Compile>

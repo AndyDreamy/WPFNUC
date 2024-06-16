@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using 核素识别仪.其他功能类;
 using 核素识别仪.小窗口;
+using 核素识别仪.拓展功能.AlphaCPS;
 using 核素识别仪.拟合助手_WPF;
 using 核素识别仪.自定义控件;
 using 核素识别仪.通用功能类;
@@ -34,7 +35,7 @@ namespace 核素识别仪
     /// <summary>
     /// 作者：谢延磊
     /// 创建时间：2023年1月15日17:07:59
-    /// 最后更改时间：2023年11月6日20:53:35
+    /// 最后更改时间：2024年6月16日17:52:46
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
@@ -52,7 +53,7 @@ namespace 核素识别仪
         /// <summary>
         /// 串口设置界面，从中获取串口
         /// </summary>
-        SerialPortSetting f_Sp = new SerialPortSetting();
+        private SerialPortSetting f_Sp = new SerialPortSetting();
 
         /// <summary>
         /// 串口对象，由f_Sp中的串口对象赋值
@@ -288,7 +289,7 @@ namespace 核素识别仪
         /// <summary>
         /// 控制是否隐藏一些内容，用于401马工。这个只能在程序里改
         /// </summary>
-        private bool isHideFor401Ma = false;
+        private bool isHideFor401Ma = true;
 
         /// <summary>
         /// 控制是否在显示串口设置
@@ -376,6 +377,9 @@ namespace 核素识别仪
             //读取参数，需要在数据对象初始化后再执行
             InitReadParas();
 
+            //初始化读取AlphaCPS页面相关
+            Init_AlphaCPS();
+
             #region ★根据实际需求进行一些界面配置，需要在读取参数之后
 
             #region 设置手否要给刘涛隐藏一部分内容，只需要设置P_isHideForLiuTao即可
@@ -397,7 +401,6 @@ namespace 核素识别仪
 
             if (isHideFor401Ma)
             {
-                bt_清空.Visibility = Visibility.Collapsed;
                 bt_核素识别.Visibility = Visibility.Collapsed;
                 bt_核素库.Visibility = Visibility.Collapsed;
                 bt_手动稳峰.Visibility = Visibility.Collapsed;
@@ -411,6 +414,9 @@ namespace 核素识别仪
 
                 //更改标题
                 this.Title = "Csl测试仪";
+
+                this.Title = "紫外荧光获取探测器系统";
+                tab_AlphaCPS.Visibility = Visibility.Collapsed;
             }
 
             #endregion
@@ -431,6 +437,9 @@ namespace 核素识别仪
 
             //隐藏控制台
             ConsoleHelper.HideConsole();
+#if DEBUG
+            ConsoleHelper.ShowConsole();
+#endif
 
         }
         #endregion
@@ -2477,6 +2486,20 @@ namespace 核素识别仪
         private void bt_OpenFittingWindow_Click(object sender, RoutedEventArgs e)
         {
             adc.OpenOneWindow(w_Fitting);
+        }
+
+        #endregion
+
+        #region AlphaCPS采集相关
+
+        public AlphaCPS DataContextAlphaCPS { get; set; } = AlphaCPS.Instance;
+
+        /// <summary>
+        /// 初始化读取AlphaCPS页面相关
+        /// </summary>
+        private void Init_AlphaCPS()
+        {
+            AlphaCPS.Instance.Init();
         }
 
         #endregion

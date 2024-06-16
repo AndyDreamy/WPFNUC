@@ -731,7 +731,14 @@ namespace 核素识别仪.其他功能类
                         }
                         else//Y轴缩放
                         {
-                            a.ScaleView.Zoom(myChart.YStartPosition, myChart.ySize * 1.5, DateTimeIntervalType.Auto);
+                            double yStartPosition = myChart.YStartPosition;
+                            double viewSize = myChart.ySize;
+                            if (viewSize == 0)
+                            {
+                                viewSize = yStartPosition * 2;
+                                yStartPosition = 0;
+                            }
+                            a.ScaleView.Zoom(yStartPosition, viewSize * 1.5, DateTimeIntervalType.Auto);
                         }
                     }
 
@@ -791,13 +798,8 @@ namespace 核素识别仪.其他功能类
                 if (hit.ChartElementType == ChartElementType.AxisLabels || hit.ChartElementType == ChartElementType.Axis)
                 {
                     Axis a = hit.Axis;//所在的轴
-                    interval = a.ScaleView.Size * 0.1;
-                    if (myChart.isAxisXTime && a == chart1.ChartAreas[0].AxisX)
-                    {
-                        //interval = 0.000001;//如果是时间轴，则加减的值要特别小（这个值似乎与横坐标的类型有关，若为秒，则设置为0.001较合适；若为微妙，则设置为0.000001）
-                        //interval = 0.001;
-                        interval = 0.01;
-                    }
+                    double scaleViewSize = a.ScaleView.ViewMaximum - a.ScaleView.ViewMinimum;//当前轴所显示的范围的长度（之所以不直接用a.ScaleView.Size是因为对于时间轴，这个值是不对的）
+                    interval = scaleViewSize * 0.1;
                     if (a.ScaleView.Position.ToString() != "NaN")
                     {
                         if (e.Delta > 0)
