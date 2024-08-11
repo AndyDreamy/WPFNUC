@@ -22,7 +22,7 @@ namespace 核素识别仪.其他功能类.SQLite
 
         #region Fields
 
-        private readonly string dateTimeFormat = "yyyy-MM-dd HH:mm:ss.sss";
+        public readonly string dateTimeFormat = "yyyy-MM-dd HH:mm:ss.sss";
 
         #endregion
 
@@ -277,7 +277,7 @@ namespace 核素识别仪.其他功能类.SQLite
         /// 查询一段时间的数据
         /// </summary>
         /// <returns></returns>
-        public DataTable QueryDataInPeriod(string tableName,string dateColumnName, DateTime startTime, DateTime endTime)
+        public DataTable QueryDataInPeriod(string tableName, string dateColumnName, DateTime startTime, DateTime endTime)
         {
             string sql = $"SELECT * FROM \"{tableName}\" " +
                 $"WHERE {dateColumnName} BETWEEN \"{startTime.ToString(dateTimeFormat)}\" AND \"{endTime.ToString(dateTimeFormat)}\"";
@@ -314,9 +314,17 @@ namespace 核素识别仪.其他功能类.SQLite
             sb.Append(" (");
             for (int i = 0; i < values.Length; i++)
             {
-                sb.Append('\"');
-                sb.Append(values[i]);
-                sb.Append('\"');
+                string value = values[i];
+                if (value.Contains('('))//如果这个value中含有Sqlite的函数，则不加引号
+                {
+                    sb.Append(value);
+                }
+                else
+                {
+                    sb.Append('\"');
+                    sb.Append(value);
+                    sb.Append('\"');
+                }
                 sb.Append(',');
             }
             sb.Remove(sb.Length - 1, 1);//除去最后一个逗号
