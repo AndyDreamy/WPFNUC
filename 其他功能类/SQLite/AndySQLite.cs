@@ -11,10 +11,18 @@ namespace 核素识别仪.其他功能类.SQLite
 {
     public class AndySQLite
     {
-        #region Instance
+        #region Constructor
 
-        private static Lazy<AndySQLite> _instance = new Lazy<AndySQLite>(() => new AndySQLite());
-        public static AndySQLite Instance { get { return _instance.Value; } }
+        public AndySQLite()
+        {
+
+        }
+
+        #endregion
+
+        #region Fields
+
+        private readonly string dateTimeFormat = "yyyy-MM-dd HH:mm:ss.sss";
 
         #endregion
 
@@ -22,23 +30,27 @@ namespace 核素识别仪.其他功能类.SQLite
 
         private string dbPath;
         /// <summary>
-        /// 数据库的路径
+        /// 数据库的路径，需要在实例化AndySQLite前设置好
         /// </summary>
         public string P_dbPath
         {
             get { return dbPath; }
-            set { dbPath = value; }
+            set
+            {
+                dbPath = value;
+                SetConnStr();//同步设置连接字符串
+            }
         }
 
-        private string connStr;
         /// <summary>
-        /// 连接字符串
+        /// 连接字符串，需要执行SetConnStr方法设置
         /// </summary>
-        public string P_connStr
-        {
-            get { return connStr; }
-            set { connStr = value; }
-        }
+        private string connStr;
+
+        /// <summary>
+        /// 是否可以成功连接数据库
+        /// </summary>
+        public bool CanConnect { get; set; } = false;
 
         #endregion
 
@@ -195,6 +207,7 @@ namespace 核素识别仪.其他功能类.SQLite
                 //断开连接
                 DisconnectDB(conn);
             }
+            CanConnect = true;
             Console.WriteLine("测试连接SQLite成功！");
             return true;
         }
@@ -249,6 +262,30 @@ namespace 核素识别仪.其他功能类.SQLite
         }
 
         /// <summary>
+        /// 查询一个数据表的所有数据
+        /// </summary>
+        /// <param name="tableName">数据表名</param>
+        /// <returns></returns>
+        public DataTable QueryAllFromTable(string tableName)
+        {
+            string sql = $"SELECT * FROM \"{tableName}\"";
+            DataTable dt = QueryDB(sql);
+            return dt;
+        }
+
+        /// <summary>
+        /// 查询一段时间的数据
+        /// </summary>
+        /// <returns></returns>
+        public DataTable QueryDataInPeriod(string tableName,string dateColumnName, DateTime startTime, DateTime endTime)
+        {
+            string sql = $"SELECT * FROM \"{tableName}\" " +
+                $"WHERE {dateColumnName} BETWEEN \"{startTime.ToString(dateTimeFormat)}\" AND \"{endTime.ToString(dateTimeFormat)}\"";
+            DataTable dt = QueryDB(sql);
+            return dt;
+        }
+
+        /// <summary>
         /// 数据库插入数据方法。
         /// </summary>
         /// <param name="tbName">插入的数据表</param>
@@ -264,11 +301,11 @@ namespace 核素识别仪.其他功能类.SQLite
             StringBuilder sb = new StringBuilder();
             //示例："INSERT INTO [NOI] ([Nuc_id], [Nuc_name], [Nuc_type]) VALUES (@Nuc_id, @Nuc_name,@Nuc_type);"
             sb.Append("INSERT INTO ");
-            sb.Append(tbName);
+            sb.Append($"\"{tbName}\"");
             sb.Append(" (");
             for (int i = 0; i < columnNames.Length; i++)
             {
-                sb.Append(columnNames[i]);
+                sb.Append($"\"{columnNames[i]}\"");
                 sb.Append(',');
             }
             sb.Remove(sb.Length - 1, 1);//除去最后一个逗号
@@ -277,9 +314,9 @@ namespace 核素识别仪.其他功能类.SQLite
             sb.Append(" (");
             for (int i = 0; i < values.Length; i++)
             {
-                sb.Append('\'');
+                sb.Append('\"');
                 sb.Append(values[i]);
-                sb.Append('\'');
+                sb.Append('\"');
                 sb.Append(',');
             }
             sb.Remove(sb.Length - 1, 1);//除去最后一个逗号

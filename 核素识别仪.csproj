@@ -74,6 +74,9 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToOthersConverter.cs" />
     <Compile Include="Converters\DoubleToFormatConverter.cs" />
+    <Compile Include="Models\AlphaCPSData.cs" />
+    <Compile Include="Servers\DataServer\AlphaCPSDataManager.cs" />
+    <Compile Include="Utils\PathHelper.cs" />
     <Compile Include="其他功能类\AndyCommon.cs" />
     <Compile Include="其他功能类\AndyFileRW.cs" />
     <Compile Include="其他功能类\AndyGlobalErrorHandle.cs" />
@@ -87,7 +90,6 @@
     <Compile Include="其他功能类\FittingFuntion.cs" />
     <Compile Include="其他功能类\MVVMCommon\DelegateCommand.cs" />
     <Compile Include="其他功能类\SQLite\AndySQLite.cs" />
-    <Compile Include="其他功能类\SQLite\SQLiteHelper.cs" />
     <Compile Include="小窗口\SerialPortSetting.xaml.cs">
       <DependentUpon>SerialPortSetting.xaml</DependentUpon>
     </Compile>
@@ -110,6 +112,9 @@
       <DependentUpon>W_StabilizePeak.xaml</DependentUpon>
     </Compile>
     <Compile Include="拓展功能\AlphaCPS\AlphaCPS.cs" />
+    <Compile Include="拓展功能\AlphaCPS\W_CPSHistory.xaml.cs">
+      <DependentUpon>W_CPSHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="拟合助手_WPF\W_Fitting.xaml.cs">
       <DependentUpon>W_Fitting.xaml</DependentUpon>
     </Compile>
@@ -124,6 +129,9 @@
     </Compile>
     <Compile Include="自定义控件\CTr_NucFactors.xaml.cs">
       <DependentUpon>CTr_NucFactors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="自定义控件\DateTimePicker_Andy.xaml.cs">
+      <DependentUpon>DateTimePicker_Andy.xaml</DependentUpon>
     </Compile>
     <Compile Include="资源\AndyROI.cs" />
     <Compile Include="集成的数据类\AutoRun.cs" />
@@ -172,6 +180,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="拓展功能\AlphaCPS\W_CPSHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="拟合助手_WPF\W_Fitting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -191,6 +203,10 @@
     <Page Include="自定义控件\CTr_NucFactors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="自定义控件\DateTimePicker_Andy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -290,5 +306,6 @@
   <ItemGroup>
     <Resource Include="Images\串口.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
