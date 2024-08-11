@@ -13,13 +13,23 @@ namespace 核素识别仪.集成的数据类
     {
         private string cmd_Measure = "FFAABBCC0000000200000000";
         /// <summary>
-        /// 采集数据指令
+        /// 采集多道数据指令
         /// </summary>
         public string Cmd_Measure
         {
             get { return cmd_Measure; }
             set { cmd_Measure = value; }
         }
+
+        /// <summary>
+        /// 采集盖革管通道0的CPS的指令
+        /// </summary>
+        public string Cmd_MeasureGMCPS0 { get; set; } = "FFAABBCC0000002200000000";
+
+        /// <summary>
+        /// 采集盖革管通道1的CPS的指令
+        /// </summary>
+        public string Cmd_MeasureGMCPS1 { get; set; } = "FFAABBCC0000002200000002";
 
         private string cmd_Stop = "FFAABBCC0000000500000000";
         /// <summary>

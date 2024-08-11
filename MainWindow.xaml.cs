@@ -41,7 +41,7 @@ namespace 核素识别仪
     /// <summary>
     /// 作者：谢延磊
     /// 创建时间：2023年1月15日17:07:59
-    /// 最后更改时间：2024年6月16日17:52:46
+    /// 最后更改时间：2024年8月11日16:10:56
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
@@ -1072,6 +1072,57 @@ namespace 核素识别仪
 
                     Console.WriteLine("解析数据一次");
                 }
+
+                #region 采集CPS数据
+
+                #region 通道0的CPS，是GM管的CPS
+
+                //发送采集指令
+                andySP.SPSend(beiJingInstr.Cmd_MeasureGMCPS0, false);
+                adc.delay(10);
+
+                //读取数据
+                bufferAll = (byte[])andySP.SPReceive(AndySerialPort.SPReceiveType.Byte);
+
+                //判断接收数据是否正常
+                int cps0 = 0;
+                if (bufferAll.Length == 12)
+                {
+                    //解析CPS数据
+                    cps0 += (bufferAll[8 + 3] & 0xFF);
+                    cps0 += (bufferAll[8 + 2] & 0xFF) << 8;
+                    cps0 += (bufferAll[8 + 1] & 0xFF) << 16;
+                    cps0 += (bufferAll[8 + 0] & 0xFF) << 24;
+                }
+
+                #endregion
+
+                #region 通道1的CPS，作为中子的CPS
+
+                //发送采集指令
+                andySP.SPSend(beiJingInstr.Cmd_MeasureGMCPS1, false);
+                adc.delay(10);
+
+                //读取数据
+                bufferAll = (byte[])andySP.SPReceive(AndySerialPort.SPReceiveType.Byte);
+
+                //判断接收数据是否正常
+                int cps1 = 0;
+                if (bufferAll.Length == 12)
+                {
+                    //解析CPS数据
+                    cps1 += (bufferAll[8 + 3] & 0xFF);
+                    cps1 += (bufferAll[8 + 2] & 0xFF) << 8;
+                    cps1 += (bufferAll[8 + 1] & 0xFF) << 16;
+                    cps1 += (bufferAll[8 + 0] & 0xFF) << 24;
+                }
+
+                #endregion
+
+                //设置GM CPS
+                receDatas.Cps_GM = cps0;
+
+                #endregion
             }
             else if (MCU == MCUType.龙)///Long多道数据采集
             {
@@ -1114,6 +1165,8 @@ namespace 核素识别仪
                 }
             }
 
+            //上面解析完多道数据、CPS数据、时间等参数后，计算CPS和Rate
+            receDatas.UpdateCPSRate();
 
             #endregion
 
@@ -1364,6 +1417,8 @@ namespace 核素识别仪
 
             //计时清零
             receDatas.P_measuredTime = 0;
+            receDatas.P_deadTime = 0;
+            receDatas.P_liveTime = 0;
 
             //开始时间复位
             autoRun.P_startTime = DateTime.MinValue;

@@ -20,6 +20,10 @@ namespace 核素识别仪.集成的数据类
         #region 数据定义
 
         public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         private MainWindow father;
         /// <summary>
@@ -200,7 +204,7 @@ namespace 核素识别仪.集成的数据类
 
         private double deadTime = 0;
         /// <summary>
-        /// 读回来的死时间，单位ns
+        /// 读回来的死时间，单位s
         /// </summary>
         public double P_deadTime
         {
@@ -214,6 +218,21 @@ namespace 核素识别仪.集成的数据类
                 }
             }
         }
+
+        private double liveTime;
+        /// <summary>
+        /// 活时间
+        /// </summary>
+        public double P_liveTime
+        {
+            get { return liveTime; }
+            set
+            {
+                liveTime = value;
+                OnPropertyChanged(nameof(P_liveTime));
+            }
+        }
+
 
         #endregion
 
@@ -517,6 +536,20 @@ namespace 核素识别仪.集成的数据类
                         MultiDatas[i] = 0;
                 }
 
+                //对256整数倍的道址的数据进行平滑。2024年8月11日
+                for (int i = 255; i < 2048; i += 256)
+                {
+                    if (i == 2047)//最后一道取前一道数据
+                    {
+                        MultiDatas[i] = MultiDatas[i - 1];
+                    }
+                    else
+                    {
+                        //取左右各一道数据取平均
+                        MultiDatas[i] = (MultiDatas[i] + MultiDatas[i]) / 2;
+                    }
+                }
+
                 #endregion
 
                 #region 解析出时间
@@ -537,19 +570,15 @@ namespace 核素识别仪.集成的数据类
                     P_measuredTime = time;
                 }
 
-                //死时间解析，现在似乎都是0
-                if (false)
-                {
-#pragma warning disable CS0162 // 检测到无法访问的代码
-                    double time = 0;
-#pragma warning restore CS0162 // 检测到无法访问的代码
-                    int m = 12;
-                    time += (bufferAll[m++] & 0xFF);
-                    time += (bufferAll[m++] & 0xFF) << 8;
-                    time += (bufferAll[m++] & 0xFF) << 16;
-                    time += (bufferAll[m++] & 0xFF) << 24;
-                    P_deadTime = time;
-                }
+                //死时间解析，ns为单位的固定时间，为最近一秒内的死时间
+                double deadTime = 0;
+                int m0 = 12;
+                deadTime += (bufferAll[m0++] & 0xFF);
+                deadTime += (bufferAll[m0++] & 0xFF) << 8;
+                deadTime += (bufferAll[m0++] & 0xFF) << 16;
+                deadTime += (bufferAll[m0++] & 0xFF) << 24;
+                P_deadTime += deadTime / 1e+09;//累加死时间
+                P_liveTime = P_measuredTime - P_deadTime;//计算活时间
 
                 #endregion
 
@@ -671,13 +700,15 @@ namespace 核素识别仪.集成的数据类
 
             //通过仪器读回数据，更新了多道数据，更新标志位
             MainWindow.Instance.autoRun.P_isDataNew = true;
+        }
 
-            #region 计算CPS和Rate
-
+        /// <summary>
+        /// 在解析完多道数据、CPS数据、时间等参数后，计算CPS和Rate
+        /// </summary>
+        public void UpdateCPSRate()
+        {
             GetCPS();
             GetRate();
-
-            #endregion
         }
 
         /// <summary>

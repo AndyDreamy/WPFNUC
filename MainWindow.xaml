@@ -490,6 +490,10 @@
                                     <TextBox Text="{Binding P_measuredTime,Converter={StaticResource dtfc_0}}"
                          MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
+                                    <Label Content="活时间(s)：" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding P_liveTime,Converter={StaticResource dtfc_2}}"
+                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+
                                 </StackPanel>
                             </StackPanel>
 
