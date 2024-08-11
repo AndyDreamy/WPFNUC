@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="核素识别仪.自定义控件.DateTimePicker_Andy"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Name="this"
+             Height="25"
+             >
+    <Border x:Name="border" BorderThickness="0" BorderBrush="Black" CornerRadius="2" >
+        <StackPanel Orientation="Horizontal" Margin="0" VerticalAlignment="Center">
+            <DatePicker SelectedDate="{Binding SelectedDate,ElementName=this}" Width="120" Margin="0,0,3,0" VerticalAlignment="Center"/>
+            <TextBox x:Name="tb_Hour" Text="{Binding Path=Hour,ElementName=this,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                     KeyDown="TextBox_KeyDown"  Width="25" MaxLength="2" Tag="23"  
+                     />
+            <Label Content=":"  Padding="1,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="tb_Minute"  Text="{Binding Path=Minute,ElementName=this,UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                     KeyDown="TextBox_KeyDown" Width="25" MaxLength="2" Tag="59"  
+                     />
+            <Label Content=":"  Padding="1,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="tb_Second"  Text="{Binding Path=Second,ElementName=this,UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                     KeyDown="TextBox_KeyDown" Width="25" MaxLength="2" Tag="59"  
+                     />
+        </StackPanel>
+    </Border>
+</UserControl>

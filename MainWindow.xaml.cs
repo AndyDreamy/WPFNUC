@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +19,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using 核素识别仪.Models;
+using 核素识别仪.Servers.DataServer;
+using 核素识别仪.Utils;
 using 核素识别仪.其他功能类;
+using 核素识别仪.其他功能类.SQLite;
 using 核素识别仪.小窗口;
 using 核素识别仪.拓展功能.AlphaCPS;
 using 核素识别仪.拟合助手_WPF;
@@ -69,6 +75,16 @@ namespace 核素识别仪
         /// 提示小窗口
         /// </summary>
         public W_Note w_Note = new W_Note();
+
+        /// <summary>
+        /// CPS数据库检索界面
+        /// </summary>
+        private W_CPSHistory w_CPSHistory = new W_CPSHistory();
+
+        /// <summary>
+        /// 程序集名称
+        /// </summary>
+        public string AssemblyName { get { return Assembly.GetExecutingAssembly().GetName().Name; } }
 
         #region 多道相关数据
 
@@ -380,6 +396,9 @@ namespace 核素识别仪
             //初始化读取AlphaCPS页面相关
             Init_AlphaCPS();
 
+            //初始化αCPS数据库相关
+            AlphaCPSDataManager.Instance.Init();
+
             #region ★根据实际需求进行一些界面配置，需要在读取参数之后
 
             #region 设置手否要给刘涛隐藏一部分内容，只需要设置P_isHideForLiuTao即可
@@ -407,16 +426,16 @@ namespace 核素识别仪
                 tab_测量活度.Visibility = Visibility.Collapsed;
 
                 //显示一个串口设置按钮在外面
-                bt_串口设置.Visibility = Visibility.Visible;
+                isShow串口设置 = true;
 
                 //隐藏右键菜单
                 menu_Window.Visibility = Visibility.Hidden;
 
-                //更改标题
-                this.Title = "Csl测试仪";
+                ////更改标题
+                //this.Title = "Csl测试仪";
+                //this.Title = "紫外荧光获取探测器系统";
 
-                this.Title = "紫外荧光获取探测器系统";
-                tab_AlphaCPS.Visibility = Visibility.Collapsed;
+                tab_AlphaCPS.Visibility = Visibility.Visible;
             }
 
             #endregion
@@ -2500,6 +2519,11 @@ namespace 核素识别仪
         private void Init_AlphaCPS()
         {
             AlphaCPS.Instance.Init();
+        }
+
+        private void 打开CPS数据库检索界面_Click(object sender, RoutedEventArgs e)
+        {
+            adc.OpenOneWindow(w_CPSHistory);
         }
 
         #endregion

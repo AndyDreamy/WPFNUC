@@ -12,6 +12,10 @@ using 核素识别仪.其他功能类;
 using static 核素识别仪.其他功能类.AndyModbusRTU;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows;
+using 核素识别仪.Models;
+using 核素识别仪.Servers.DataServer;
+using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace 核素识别仪.拓展功能.AlphaCPS
 {
@@ -34,15 +38,6 @@ namespace 核素识别仪.拓展功能.AlphaCPS
         #endregion
 
         #region Data
-
-        /// <summary>
-        /// CPS数据的类型
-        /// </summary>
-        private class AlphaCPSData
-        {
-            public double CPS { get; set; }
-            public DateTime Time { get; set; }
-        }
 
         /// <summary>
         /// 存储读取的CPS数据
@@ -157,6 +152,48 @@ namespace 核素识别仪.拓展功能.AlphaCPS
             }
         }
 
+        /// <summary>
+        /// 查询数据库时用到的CPS阈值
+        /// </summary>
+        public double QueryCPSThreshold
+        {
+            get => queryCPSThreshold; set
+            {
+                queryCPSThreshold = value;
+                OnPropertyChanged(nameof(QueryCPSThreshold));
+            }
+        }
+        private DateTime dBQueryStartTime;
+        private DateTime dBQueryEndTime;
+
+        /// <summary>
+        /// 数据库检索时的开始时间
+        /// </summary>
+        public DateTime DBQueryStartTime
+        {
+            get => dBQueryStartTime; set
+            {
+                dBQueryStartTime = value;
+                OnPropertyChanged(nameof(DBQueryStartTime));
+            }
+        }
+
+        /// <summary>
+        /// 数据库检索时的结束时间
+        /// </summary>
+        public DateTime DBQueryEndTime
+        {
+            get => dBQueryEndTime; set
+            {
+                dBQueryEndTime = value;
+                OnPropertyChanged(nameof(DBQueryEndTime));
+            }
+        }
+
+        /// <summary>
+        /// 从数据库读取的CPS数据列表
+        /// </summary>
+        public ObservableCollection<AlphaCPSData> CPSDatasFromDB { get { return AlphaCPSDataManager.Instance.CPSDatasFromDB; } }
 
         #endregion
 
@@ -399,6 +436,7 @@ namespace 核素识别仪.拓展功能.AlphaCPS
         /// 用于实现CPS采集的Modbus助手
         /// </summary>
         private AndyModbusRTU _andyModbusRTU = new AndyModbusRTU();
+        private double queryCPSThreshold = 30;
 
         private void Init_SerialPort()
         {
@@ -441,6 +479,15 @@ namespace 核素识别仪.拓展功能.AlphaCPS
         public DelegateCommand Cmd_YZoomDown { get; set; }
         #endregion
 
+        #region 数据库相关
+
+        /// <summary>
+        /// 查询数据库的CPS数据命令
+        /// </summary>
+        public ICommand Cmd_QueryCPSDBData { get; set; }
+
+        #endregion
+
         /// <summary>
         /// 初始化命令逻辑
         /// </summary>
@@ -476,6 +523,8 @@ namespace 核素识别仪.拓展功能.AlphaCPS
             Cmd_YZoomDown = new DelegateCommand { ExecuteAction = new Action<object>(YZoomDown_Click) };
 
             #endregion
+
+            Cmd_QueryCPSDBData = new DelegateCommand() { ExecuteAction = new Action<object>(QueryCPSDBDataMethod) };
         }
 
         #endregion
@@ -543,6 +592,27 @@ namespace 核素识别仪.拓展功能.AlphaCPS
         /// </summary>
         private void CollectCPS()
         {
+            #region 测试代码
+
+#if DEBUG
+            //模拟读取数据
+            if (false)
+            {
+                Random rd = new Random();
+
+                //记录此数据
+                AlphaCPSData cps0 = new AlphaCPSData() { CPS = rd.Next(10, 1000) / 100d, Time = DateTime.Now };
+                listCPSData.Add(cps0);
+
+                //Insert到数据库
+                AlphaCPSDataManager.Instance.InsertOneCPS(cps0);
+
+                return;
+            } 
+#endif
+
+            #endregion
+
             double cpsResult;
 
             //定义CPS数据的Modbus信息
@@ -570,7 +640,11 @@ namespace 核素识别仪.拓展功能.AlphaCPS
                         cpsResult = (float)res;
 
                         //记录此数据
-                        listCPSData.Add(new AlphaCPSData() { CPS = cpsResult, Time = DateTime.Now });
+                        AlphaCPSData cps = new AlphaCPSData() { CPS = cpsResult, Time = DateTime.Now };
+                        listCPSData.Add(cps);
+
+                        //Insert到数据库
+                        AlphaCPSDataManager.Instance.InsertOneCPS(cps);
 
                         Console.WriteLine($"listCPS.Count: {listCPSData.Count}");
                     }
@@ -585,6 +659,16 @@ namespace 核素识别仪.拓展功能.AlphaCPS
         private void OpenSerialPortSetting(object o)
         {
             MainWindow.Instance.adc.OpenOneWindow(f_Sp);
+        }
+
+        /// <summary>
+        /// 查询数据库的CPS数据
+        /// </summary>
+        /// <param name="o"></param>
+        private void QueryCPSDBDataMethod(object o)
+        {
+            //AlphaCPSDataManager.Instance.QueryAllData();
+            AlphaCPSDataManager.Instance.QueryDataInPeriod(DBQueryStartTime, DBQueryEndTime);
         }
 
         #endregion

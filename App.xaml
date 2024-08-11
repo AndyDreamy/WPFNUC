@@ -567,6 +567,12 @@
         <FontFamily x:Key="font_Zoom">/Fonts/#iconfont</FontFamily>
         
         <!--#endregion-->
+        
+        <!--距离-->
+        <Thickness x:Key="bottom1">0,0,0,15</Thickness>
+        <Thickness x:Key="margin_right1">10,0</Thickness>
+        <Thickness x:Key="bt_Zoom_Right0">0,0,10,0</Thickness>
+        <Thickness x:Key="marginRight2">0,0,20,0</Thickness>
 
     </Application.Resources>
 </Application>

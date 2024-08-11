@@ -7,10 +7,11 @@
         xmlns:class="clr-namespace:核素识别仪.集成的数据类" 
         xmlns:其他功能类="clr-namespace:核素识别仪.其他功能类"
         xmlns:chart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
-        xmlns:converters="clr-namespace:核素识别仪.Converters" xmlns:自定义控件="clr-namespace:核素识别仪.自定义控件"
+        xmlns:converters="clr-namespace:核素识别仪.Converters" 
+        xmlns:customControl= "clr-namespace:核素识别仪.自定义控件"
         mc:Ignorable="d"
         x:Name="_this"
-        Title="核素识别仪" Height="700" Width="1212.5" DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Title="{Binding AssemblyName}" Height="700" Width="1212.5" DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Closing="Window_Closing"  Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" FontSize="16"
         SizeChanged="_this_SizeChanged" 
         >
@@ -429,7 +430,13 @@
                                     </StackPanel>
                                 </Button>
 
-                                <Button x:Name="bt_串口设置" Visibility="Collapsed" Content="串口设置" Margin="10" Click="打开串口设置界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Width="90" Height="36"/>
+                                <Button x:Name="bt_串口设置" Width="112" Height="36" Visibility="Visible" Margin="10,0" 
+                                        Click="打开串口设置界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/串口.png" Width="23" Margin="0,0,3,0" />
+                                        <Label Content="串口设置" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
 
                             </StackPanel>
 
@@ -727,7 +734,7 @@
 
             </TabItem>
 
-            <TabItem Name="tab_AlphaCPS" Header="α计数率监测" DataContext="{Binding DataContextAlphaCPS}">
+            <TabItem Name="tab_AlphaCPS" Header="计数率监测" DataContext="{Binding DataContextAlphaCPS}">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -763,8 +770,10 @@
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_OpenSerialPortSetting}" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                    <Button Width="112" Height="36" Visibility="Visible" Margin="10,0" 
+                                        Command="{Binding Cmd_OpenSerialPortSetting}" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" >
                                         <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/串口.png" Width="23" Margin="0,0,3,0" />
                                             <Label Content="串口设置" Padding="0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
@@ -792,6 +801,9 @@
                                     <Button Width="39" Command="{Binding Cmd_YZoomDown}" FontFamily="{StaticResource font_Zoom}" Content="&#xe619;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" RenderTransformOrigin="0.5,0.5" Margin="10,0"/>
 
                                 </StackPanel>
+
+                                <Button Width="80" Height="36" Visibility="Visible" Margin="10,0" Content="检索"
+                                        Click="打开CPS数据库检索界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}"/>
 
                             </StackPanel>
 
@@ -828,7 +840,7 @@
         </TabControl>
 
         <!--设置界面-->
-        <Grid Grid.Row="1" Grid.Column="1" Width="300" x:Name="grid_Settings" Visibility="Visible">
+        <Grid Grid.Row="1" Grid.Column="1" Width="300" x:Name="grid_Settings" Visibility="Collapsed">
 
             <ScrollViewer VerticalScrollBarVisibility="Auto">
 
