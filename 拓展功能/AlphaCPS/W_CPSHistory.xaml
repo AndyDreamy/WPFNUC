@@ -8,7 +8,7 @@
         xmlns:converters="clr-namespace:核素识别仪.Converters"
         DataContext="{Binding AlphaCPS,RelativeSource={RelativeSource Mode=Self}}"
         mc:Ignorable="d" Closing="Window_Closing" FontSize="16"
-        Title="W_CPSHistory" Height="635" Width="547.5" WindowStartupLocation="CenterScreen">
+        Title="CPS历史数据查询" Height="635" Width="547.5" WindowStartupLocation="CenterScreen">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -43,7 +43,7 @@
                 <DataGridTemplateColumn Header="计数率" Width="1*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding CPS}" TextAlignment="Center">
+                            <TextBlock Text="{Binding CPS,StringFormat=0.00}" TextAlignment="Center">
                                 <TextBlock.Foreground>
                                     <MultiBinding Converter="{x:Static converters:CPSThresholdToColorMultiConverter.Instance}">
                                         <Binding Path="CPS"/>

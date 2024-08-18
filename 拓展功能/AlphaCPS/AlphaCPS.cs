@@ -163,8 +163,8 @@ namespace 核素识别仪.拓展功能.AlphaCPS
                 OnPropertyChanged(nameof(QueryCPSThreshold));
             }
         }
-        private DateTime dBQueryStartTime;
-        private DateTime dBQueryEndTime;
+        private DateTime dBQueryStartTime = DateTime.Now;
+        private DateTime dBQueryEndTime = DateTime.Now;
 
         /// <summary>
         /// 数据库检索时的开始时间
@@ -604,11 +604,29 @@ namespace 核素识别仪.拓展功能.AlphaCPS
                 AlphaCPSData cps0 = new AlphaCPSData() { CPS = rd.Next(10, 1000) / 100d, Time = DateTime.Now };
                 listCPSData.Add(cps0);
 
+                //从开头遍历数据，如果时间超过5分钟以前，则去除
+                int deleteNum = 0;
+                foreach (AlphaCPSData cpsData in listCPSData)
+                {
+                    if ((DateTime.Now - cpsData.Time).TotalSeconds > 20)
+                    {
+                        deleteNum++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                for (int i = 0; i < deleteNum; i++)
+                {
+                    listCPSData.RemoveAt(0);
+                }
+
                 //Insert到数据库
                 AlphaCPSDataManager.Instance.InsertOneCPS(cps0);
 
                 return;
-            } 
+            }
 #endif
 
             #endregion
@@ -642,6 +660,24 @@ namespace 核素识别仪.拓展功能.AlphaCPS
                         //记录此数据
                         AlphaCPSData cps = new AlphaCPSData() { CPS = cpsResult, Time = DateTime.Now };
                         listCPSData.Add(cps);
+
+                        //从开头遍历数据，如果时间超过5分钟以前，则去除
+                        int deleteNum = 0;
+                        foreach (AlphaCPSData cpsData in listCPSData)
+                        {
+                            if ((DateTime.Now - cpsData.Time).TotalSeconds > 5 * 60)
+                            {
+                                deleteNum++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        for (int i = 0; i < deleteNum; i++)
+                        {
+                            listCPSData.RemoveAt(0);
+                        }
 
                         //Insert到数据库
                         AlphaCPSDataManager.Instance.InsertOneCPS(cps);

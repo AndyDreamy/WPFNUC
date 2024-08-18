@@ -73,10 +73,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 cps_Multi = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Cps_Multi"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cps_Multi"));
             }
         }
 
@@ -90,10 +87,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 cps_GM = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Cps_GM"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cps_GM"));
             }
         }
 
@@ -107,10 +101,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 cps_Show = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Cps_Show"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cps_Show"));
             }
         }
 
@@ -124,10 +115,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 rate = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Rate"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Rate"));
 
                 //判断报警
                 JudgeRateAlarm();
@@ -144,10 +132,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 rateStr = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_rateStr"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_rateStr"));
             }
         }
 
@@ -161,10 +146,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 rateThreshold = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_rateThreshold"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_rateThreshold"));
             }
         }
 
@@ -178,10 +160,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 rateAlarm = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_rateAlarm"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_rateAlarm"));
             }
         }
 
@@ -195,10 +174,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 measuredTime = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_measuredTime"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_measuredTime"));
             }
         }
 
@@ -212,10 +188,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 deadTime = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_deadTime"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_deadTime"));
             }
         }
 
@@ -317,10 +290,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 num_MA = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_num_MA"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_num_MA"));
             }
         }
 
@@ -401,10 +371,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 leftCutOff = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("LeftCutOff"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LeftCutOff"));
             }
         }
 
@@ -422,10 +389,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 threshold1 = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_threshold1"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_threshold1"));
             }
         }
 
@@ -439,10 +403,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 threshold2 = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_threshold2"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_threshold2"));
             }
         }
 
@@ -456,10 +417,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 rateColor = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_rateColor"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_rateColor"));
             }
         }
 
@@ -478,10 +436,7 @@ namespace 核素识别仪.集成的数据类
             set
             {
                 isAlarmSound = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("P_isAlarmSound"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_isAlarmSound"));
 
                 //当用户关闭声音报警时，强制关闭报警声音
                 StopAlarmSound();
@@ -579,10 +534,6 @@ namespace 核素识别仪.集成的数据类
                 deadTime += (bufferAll[m0++] & 0xFF) << 24;
                 P_deadTime += deadTime / 1e+09;//累加死时间
                 P_liveTime = P_measuredTime - P_deadTime;//计算活时间
-
-                #endregion
-
-                #region 根据协议解析一下cps_GM
 
                 #endregion
             }
@@ -689,6 +640,20 @@ namespace 核素识别仪.集成的数据类
                     }
                     else
                         MultiDatas[i] = 0;
+                }
+
+                //对256整数倍的道址的数据进行平滑。2024年8月18日
+                for (int i = 255; i < 2048; i += 256)
+                {
+                    if (i == 2047)//最后一道取前一道数据
+                    {
+                        MultiDatas[i] = MultiDatas[i - 1];
+                    }
+                    else
+                    {
+                        //取左右各一道数据取平均
+                        MultiDatas[i] = (MultiDatas[i] + MultiDatas[i]) / 2;
+                    }
                 }
             }
 
