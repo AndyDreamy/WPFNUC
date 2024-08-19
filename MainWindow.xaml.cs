@@ -1965,6 +1965,7 @@ namespace 核素识别仪
                 "P_juanNum",
                 "P_sigma",
                 "P_smoothTimes",
+                "P_ifShowSmooth",
             };
             saveNames = new string[] {
                 "最小峰高",
@@ -1972,6 +1973,7 @@ namespace 核素识别仪
                 "卷积向两边计算的数据个数",
                 "高斯函数参数σ",
                 "高斯滤波进行平滑的次数",
+                "是否显示平滑曲线",
             };
             if (isParaEnglishName)
             {
@@ -1981,6 +1983,7 @@ namespace 核素识别仪
                 "P_juanNum",
                 "P_sigma",
                 "P_smoothTimes",
+                "P_ifShowSmooth",
             };
             }
             types = new string[]
@@ -1990,6 +1993,7 @@ namespace 核素识别仪
                 "int",
                 "double",
                 "int",
+                "bool",
             };
             fileName = "寻峰相关因子.txt";
 
