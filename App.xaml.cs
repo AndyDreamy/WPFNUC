@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,6 +31,10 @@ namespace 核素识别仪
 
             //Task线程内未捕获异常处理事件
             TaskScheduler.UnobservedTaskException += andyGEH.TaskScheduler_UnobservedTaskException; ;
+
+            //语言选择
+            核素识别仪.Properties.Resources.Culture = new CultureInfo("en-US");
+            //核素识别仪.Properties.Resources.Culture = new CultureInfo("zh-CN");
         }
     }
 

@@ -19,10 +19,10 @@ namespace 核素识别仪.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace 核素识别仪.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("核素识别仪.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,192 @@ namespace 核素识别仪.Properties {
         ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPS： 的本地化字符串。
+        /// </summary>
+        public static string Res_CPS {
+            get {
+                return ResourceManager.GetString("Res_CPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPS阈值设置： 的本地化字符串。
+        /// </summary>
+        public static string Res_CPS阈值设置 {
+            get {
+                return ResourceManager.GetString("Res_CPS阈值设置", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 串口设置 的本地化字符串。
+        /// </summary>
+        public static string Res_串口设置 {
+            get {
+                return ResourceManager.GetString("Res_串口设置", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存文件 的本地化字符串。
+        /// </summary>
+        public static string Res_保存文件 {
+            get {
+                return ResourceManager.GetString("Res_保存文件", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止 的本地化字符串。
+        /// </summary>
+        public static string Res_停止 {
+            get {
+                return ResourceManager.GetString("Res_停止", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 剂量率： 的本地化字符串。
+        /// </summary>
+        public static string Res_剂量率 {
+            get {
+                return ResourceManager.GetString("Res_剂量率", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开始时间： 的本地化字符串。
+        /// </summary>
+        public static string Res_开始时间 {
+            get {
+                return ResourceManager.GetString("Res_开始时间", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 手动稳峰 的本地化字符串。
+        /// </summary>
+        public static string Res_手动稳峰 {
+            get {
+                return ResourceManager.GetString("Res_手动稳峰", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开文件 的本地化字符串。
+        /// </summary>
+        public static string Res_打开文件 {
+            get {
+                return ResourceManager.GetString("Res_打开文件", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 核素库 的本地化字符串。
+        /// </summary>
+        public static string Res_核素库 {
+            get {
+                return ResourceManager.GetString("Res_核素库", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 核素识别 的本地化字符串。
+        /// </summary>
+        public static string Res_核素识别 {
+            get {
+                return ResourceManager.GetString("Res_核素识别", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 检索 的本地化字符串。
+        /// </summary>
+        public static string Res_检索 {
+            get {
+                return ResourceManager.GetString("Res_检索", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 清空 的本地化字符串。
+        /// </summary>
+        public static string Res_清空 {
+            get {
+                return ResourceManager.GetString("Res_清空", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 能量： 的本地化字符串。
+        /// </summary>
+        public static string Res_能量 {
+            get {
+                return ResourceManager.GetString("Res_能量", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 计数： 的本地化字符串。
+        /// </summary>
+        public static string Res_计数 {
+            get {
+                return ResourceManager.GetString("Res_计数", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 计数率监测 的本地化字符串。
+        /// </summary>
+        public static string Res_计数率监测 {
+            get {
+                return ResourceManager.GetString("Res_计数率监测", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 谱图采集 的本地化字符串。
+        /// </summary>
+        public static string Res_谱图采集 {
+            get {
+                return ResourceManager.GetString("Res_谱图采集", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 道址： 的本地化字符串。
+        /// </summary>
+        public static string Res_道址 {
+            get {
+                return ResourceManager.GetString("Res_道址", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 采集 的本地化字符串。
+        /// </summary>
+        public static string Res_采集 {
+            get {
+                return ResourceManager.GetString("Res_采集", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 采集时间(s)： 的本地化字符串。
+        /// </summary>
+        public static string Res_采集时间 {
+            get {
+                return ResourceManager.GetString("Res_采集时间", resourceCulture);
             }
         }
     }

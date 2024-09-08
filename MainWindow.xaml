@@ -9,6 +9,7 @@
         xmlns:chart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
         xmlns:converters="clr-namespace:核素识别仪.Converters" 
         xmlns:customControl= "clr-namespace:核素识别仪.自定义控件"
+        xmlns:p="clr-namespace:核素识别仪.Properties"
         mc:Ignorable="d"
         x:Name="_this"
         Title="{Binding AssemblyName}" Height="700" Width="1212.5" DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
@@ -20,6 +21,8 @@
 
         <!--#region 定义按钮样式 -->
         <Style TargetType="Button" x:Key="ButtonStyle1">
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="Width" Value="auto" />
             <!--<Setter Property="Foreground" Value="Black"/>-->
             <!--修改模板属性-->
             <Setter Property="Template">
@@ -183,11 +186,6 @@
     </Window.ContextMenu>
 
     <Grid>
-
-        <!--<Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -359,7 +357,7 @@
 
         <TabControl Visibility="Visible">
 
-            <TabItem Header="谱图采集">
+            <TabItem Header="{x:Static p:Resources.Res_谱图采集}">
 
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
@@ -371,132 +369,69 @@
                             <RowDefinition Height="53*"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
 
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" DataContext="{DynamicResource autoRun}">
 
-                                <StackPanel  Orientation="Horizontal" DataContext="{DynamicResource autoRun}">
+                                <Button Margin="{DynamicResource margin_right1}" Click="开始测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/开始.png" Width="23" Margin="0,0,3,0" />
+                                        <Label Content="{x:Static p:Resources.Res_采集}" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
 
-                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Click="开始测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="/Images/开始.png" Width="23" Margin="0,0,3,0" />
-                                            <Label Content="采集" Padding="0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
+                                <Button Margin="{DynamicResource margin_right1}" Click="停止测量_Click" IsEnabled="{Binding P_isReading}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/停止.png" Width="23" Margin="0,0,3,0" />
+                                        <Label Content="{x:Static p:Resources.Res_停止}" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
 
-                                    <Button  Width="81" Margin="{DynamicResource margin_right1}" Click="停止测量_Click" IsEnabled="{Binding P_isReading}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="/Images/停止.png" Width="23" Margin="0,0,3,0" />
-                                            <Label Content="停止" Padding="0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
+                                <Button x:Name="bt_清空" Margin="{DynamicResource margin_right1}" Click="清空测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Images/清除.png" Width="23" Margin="0,0,3,0"/>
+                                        <Label Content="{x:Static p:Resources.Res_清空}" Padding="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
 
-                                    <Button x:Name="bt_清空" Width="81" Margin="{DynamicResource margin_right1}" Click="清空测量_Click" IsEnabled="{Binding P_isReading,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="/Images/清除.png" Width="23" Margin="0,0,3,0"/>
-                                            <Label Content="清空" Padding="0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
+                            </StackPanel>
 
+                            <Button x:Name="bt_核素识别" Margin="{DynamicResource margin_right1}" Click="打开核素识别结果_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/峰值.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="{x:Static p:Resources.Res_核素识别}" Padding="0" VerticalAlignment="Center"/>
                                 </StackPanel>
+                            </Button>
 
-                                <Button x:Name="bt_核素识别" Width="112" Margin="{DynamicResource margin_right1}" Click="打开核素识别结果_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/峰值.png" Width="23" Margin="0,0,3,0" />
-                                        <Label Content="核素识别" Padding="0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <Button x:Name="bt_核素库" Width="98" Margin="{DynamicResource margin_right1}" Click="打开设置核素库界面_Click"
-                         Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/核素.png" Width="23" Margin="0,0,3,0" />
-                                        <Label Content="核素库" Padding="0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <Button x:Name="bt_手动稳峰" Content="手动稳峰" Width="81" Margin="{DynamicResource margin_right1}" Click="bt_ManualStabPeak_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
-
-                                <Button x:Name="bt_打开文件" Width="112" Margin="{DynamicResource margin_right1}" Click="bt_ReadSpe_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/打开.png" Width="23" Margin="0,0,3,0" />
-                                        <Label Content="打开文件" Padding="0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-                                <Button x:Name="bt_保存文件" Width="112" Margin="{DynamicResource margin_right1}" Click="bt_WriteSpe_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/保存.png" Width="23" Margin="0,0,3,0" />
-                                        <Label Content="保存文件" Padding="0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <Button x:Name="bt_串口设置" Width="112" Height="36" Visibility="Visible" Margin="10,0" 
-                                        Click="打开串口设置界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" >
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/串口.png" Width="23" Margin="0,0,3,0" />
-                                        <Label Content="串口设置" Padding="0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                            </StackPanel>
-
-                            <!--缩放相关-->
-                            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
-
-                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_ChartZoom_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/框选放大.png" Width="30" />
-                                        <!--<Label Content="区域放大" Padding="0" VerticalAlignment="Center"/>-->
-                                    </StackPanel>
-                                </Button>
-                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_ChartZoomReset_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/缩放重置.png" Width="22" />
-                                        <!--<Label Content="缩放重置" Padding="0" VerticalAlignment="Center"/>-->
-                                    </StackPanel>
-                                </Button>
-
-                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_XZoomUp_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe617;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Padding="5,1" Background="{DynamicResource Color_Button}"/>
-                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_XZoomDown_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe600;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
-                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_YZoomUp_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe618;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
-                                <Button Width="39" Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_YZoomDown_Click" FontFamily="{StaticResource font_Zoom}" Content="&#xe619;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" RenderTransformOrigin="0.5,0.5"/>
-
-                                <CheckBox Content="显示平滑曲线" IsChecked="{Binding P_ifShowSmooth}" Visibility="Collapsed"
-                                          DataContext="{DynamicResource andySeekPeak}" MinWidth="65" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0"/>
-
-                                <Button Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_SelectROI_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/峰谷分析.png" Width="30" />
-                                        <Label Content="ROI计算" Padding="0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <Button Margin="{DynamicResource bt_Zoom_Right0}" Click="bt_OpenFittingWindow_Click"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Images/刻度.png" Width="30" />
-                                        <Label Content="能量刻度" Padding="0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-
-                            <!--测量信息-->
-                            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
-
-                                <Label Content="开始时间：" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding P_startTimeStr,Mode=OneWay}" DataContext="{DynamicResource autoRun}" MinWidth="155" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
-
-                                <StackPanel x:Name="sp_ReceData" Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="8,0,0,0">
-
-                                    <Label Content="实时间(s)：" VerticalAlignment="Center"/>
-                                    <TextBox Text="{Binding P_measuredTime,Converter={StaticResource dtfc_0}}"
-                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
-
-                                    <Label Content="活时间(s)：" VerticalAlignment="Center" Visibility="Hidden"/>
-                                    <TextBox Text="{Binding P_liveTime,Converter={StaticResource dtfc_2}}" Visibility="Hidden"
-                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
-
+                            <Button x:Name="bt_核素库" Margin="{DynamicResource margin_right1}" Click="打开设置核素库界面_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/核素.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="{x:Static p:Resources.Res_核素库}" Padding="0" VerticalAlignment="Center"/>
                                 </StackPanel>
-                            </StackPanel>
+                            </Button>
+
+                            <Button x:Name="bt_手动稳峰" Content="{x:Static p:Resources.Res_手动稳峰}" Margin="{DynamicResource margin_right1}" Click="bt_ManualStabPeak_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
+
+                            <Button x:Name="bt_打开文件" Margin="{DynamicResource margin_right1}" Click="bt_ReadSpe_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/打开.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="{x:Static p:Resources.Res_打开文件}" Padding="0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="bt_保存文件" Margin="{DynamicResource margin_right1}" Click="bt_WriteSpe_Click" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/保存.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="{x:Static p:Resources.Res_保存文件}" Padding="0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="bt_串口设置" Height="36" Visibility="Visible" Margin="10,0" Click="打开串口设置界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Images/串口.png" Width="23" Margin="0,0,3,0" />
+                                    <Label Content="{x:Static p:Resources.Res_串口设置}" Padding="0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
 
                         </StackPanel>
 
@@ -513,33 +448,28 @@
                             <chart:Chart x:Name="chart_Putu"   />
                         </WindowsFormsHost>
 
-                        <StackPanel Orientation="Horizontal"  Grid.Row="2" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
 
                             <StackPanel x:Name="sp_ChartInfo" Grid.Row="2" Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="8,0,0,0">
 
-                                <Label Content="道址：" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding SelectedChannel,Mode=TwoWay}"
-                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+                                <Label Content="{x:Static p:Resources.Res_道址}" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedChannel,Mode=TwoWay}" MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
+                                <Label Content="{x:Static p:Resources.Res_计数}" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedCount,Mode=OneWay}" MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
-                                <Label Content="计数：" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding SelectedCount,Mode=OneWay}"
-                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
-
-                                <Label Content="能量：" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding SelectedEnergy,Mode=OneWay}"
-                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+                                <Label Content="{x:Static p:Resources.Res_能量}" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedEnergy,Mode=OneWay}" MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
                             </StackPanel>
 
-                            <StackPanel  Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="8,0,0,0">
+                            <StackPanel Orientation="Horizontal" DataContext="{DynamicResource receDatas}" Margin="8,0,0,0">
 
-                                <Label Content="CPS：" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding Cps_Show,Converter={StaticResource dtfc_2}}"
-                         MinWidth="104" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+                                <Label Content="{x:Static p:Resources.Res_CPS}" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding Cps_Show,Converter={StaticResource dtfc_2}}" MinWidth="104" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
-                                <Label Content="剂量率：" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding P_rateStr}" Foreground="{Binding P_rateColor}"   MinWidth="104" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+                                <Label Content="{x:Static p:Resources.Res_剂量率}" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding P_rateStr}" Foreground="{Binding P_rateColor}" MinWidth="104" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
                             </StackPanel>
 
@@ -603,23 +533,23 @@
 
                         </StackPanel>
 
-                        <Button Width="112" Click="打开核素识别结果_Click"  Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}">
+                        <Button Click="打开核素识别结果_Click"  Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Images/峰值.png" Width="23" Margin="0,0,3,0" />
                                 <Label Content="核素识别" Padding="0" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Width="98" Click="打开设置核素库界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}" Height="45" Visibility="Collapsed">
+                        <Button Click="打开设置核素库界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}" Height="45" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Images/核素.png" Width="23" Margin="0,0,3,0" />
                                 <Label Content="核素库" Padding="0" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Content="核素活度刻度因子" Click="打开核素活度刻度因子界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="160" Margin="{DynamicResource marginRight2}"/>
-                        <Button Content="选择要识别的核素" Margin="{DynamicResource marginRight2}" Click="打开选择人为设定核素选择界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="153"/>
-                        <Button Content="本底测量" Margin="0" Click="bt_ManualBenDiMS_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="90"/>
+                        <Button Content="核素活度刻度因子" Click="打开核素活度刻度因子界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="{DynamicResource marginRight2}"/>
+                        <Button Content="选择要识别的核素" Margin="{DynamicResource marginRight2}" Click="打开选择人为设定核素选择界面_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
+                        <Button Content="本底测量" Margin="0" Click="bt_ManualBenDiMS_Click"   Height="45" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0">
@@ -739,7 +669,7 @@
 
             </TabItem>
 
-            <TabItem Name="tab_AlphaCPS" Header="计数率监测" DataContext="{Binding DataContextAlphaCPS}">
+            <TabItem Name="tab_AlphaCPS" Header="{x:Static p:Resources.Res_计数率监测}" DataContext="{Binding DataContextAlphaCPS}">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -754,32 +684,32 @@
 
                                 <StackPanel  Orientation="Horizontal">
 
-                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_StartCollecting}" IsEnabled="{Binding IsCollecting,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                    <Button Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_StartCollecting}" IsEnabled="{Binding IsCollecting,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Images/开始.png" Width="23" Margin="0,0,3,0" />
-                                            <Label Content="采集" Padding="0" VerticalAlignment="Center"/>
+                                            <Label Content="{x:Static p:Resources.Res_采集}" Padding="0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
 
-                                    <Button  Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_StopCollecting}" IsEnabled="{Binding IsCollecting}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                    <Button Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_StopCollecting}" IsEnabled="{Binding IsCollecting}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Images/停止.png" Width="23" Margin="0,0,3,0" />
-                                            <Label Content="停止" Padding="0" VerticalAlignment="Center"/>
+                                            <Label Content="{x:Static p:Resources.Res_停止}" Padding="0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Width="81" Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_ClearCPSData}" IsEnabled="{Binding IsCollecting,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
+                                    <Button Margin="{DynamicResource margin_right1}" Command="{Binding Cmd_ClearCPSData}" IsEnabled="{Binding IsCollecting,Converter={StaticResource btoc_Fei}}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Images/清除.png" Width="23" Margin="0,0,3,0"/>
-                                            <Label Content="清空" Padding="0" VerticalAlignment="Center"/>
+                                            <Label Content="{x:Static p:Resources.Res_清空}" Padding="0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Width="112" Height="36" Visibility="Visible" Margin="10,0" 
-                                        Command="{Binding Cmd_OpenSerialPortSetting}" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" >
+                                    <Button Height="36" Visibility="Visible" Margin="10,0" 
+                            Command="{Binding Cmd_OpenSerialPortSetting}" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" >
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Images/串口.png" Width="23" Margin="0,0,3,0" />
-                                            <Label Content="串口设置" Padding="0" VerticalAlignment="Center"/>
+                                            <Label Content="{x:Static p:Resources.Res_串口设置}" Padding="0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
 
@@ -788,46 +718,43 @@
                                 <!--缩放相关-->
                                 <StackPanel Orientation="Horizontal" Margin="0">
 
-                                    <Button Width="39" Command="{Binding Cmd_ChartZoom}"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0">
+                                    <Button Command="{Binding Cmd_ChartZoom}"  Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Images/框选放大.png" Width="30" />
-                                            <!--<Label Content="区域放大" Padding="0" VerticalAlignment="Center"/>-->
                                         </StackPanel>
                                     </Button>
-                                    <Button Width="39" Command="{Binding Cmd_ChartZoomReset}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0">
+                                    <Button Command="{Binding Cmd_ChartZoomReset}" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="/Images/缩放重置.png" Width="22" />
-                                            <!--<Label Content="缩放重置" Padding="0" VerticalAlignment="Center"/>-->
                                         </StackPanel>
                                     </Button>
-                                    <Button Width="39" Command="{Binding Cmd_XZoomUp}" FontFamily="{StaticResource font_Zoom}" Content="&#xe617;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Padding="5,1" Background="{DynamicResource Color_Button}" Margin="10,0"/>
-                                    <Button Width="39" Command="{Binding Cmd_XZoomDown}" FontFamily="{StaticResource font_Zoom}" Content="&#xe600;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0"/>
-                                    <Button Width="39" Command="{Binding Cmd_YZoomUp}" FontFamily="{StaticResource font_Zoom}" Content="&#xe618;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0"/>
-                                    <Button Width="39" Command="{Binding Cmd_YZoomDown}" FontFamily="{StaticResource font_Zoom}" Content="&#xe619;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" RenderTransformOrigin="0.5,0.5" Margin="10,0"/>
+                                    <Button Command="{Binding Cmd_XZoomUp}" FontFamily="{StaticResource font_Zoom}" Content="&#xe617;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Padding="5,1" Background="{DynamicResource Color_Button}" Margin="10,0"/>
+                                    <Button Command="{Binding Cmd_XZoomDown}" FontFamily="{StaticResource font_Zoom}" Content="&#xe600;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0"/>
+                                    <Button Command="{Binding Cmd_YZoomUp}" FontFamily="{StaticResource font_Zoom}" Content="&#xe618;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" Margin="10,0"/>
+                                    <Button Command="{Binding Cmd_YZoomDown}" FontFamily="{StaticResource font_Zoom}" Content="&#xe619;" FontSize="25" Height="36" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}" Padding="5,1" RenderTransformOrigin="0.5,0.5" Margin="10,0"/>
 
                                 </StackPanel>
 
-                                <Button Width="80" Height="36" Visibility="Visible" Margin="10,0" Content="检索"
-                                        Click="打开CPS数据库检索界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}"/>
+                                <Button Height="36" Visibility="Visible" Margin="10,0" Content="{x:Static p:Resources.Res_检索}"
+                            Click="打开CPS数据库检索界面_Click" Style="{StaticResource ButtonStyle1}" Background="{DynamicResource Color_Button}"/>
 
                             </StackPanel>
 
                             <!--测量信息-->
                             <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
 
-                                <Label Content="开始时间：" VerticalAlignment="Center"/>
+                                <Label Content="{x:Static p:Resources.Res_开始时间}" VerticalAlignment="Center"/>
                                 <TextBox Text="{Binding P_startTimeStr,Mode=OneWay}"  MinWidth="155" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
                                 <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
 
-                                    <Label Content="采集时间(s)：" VerticalAlignment="Center"/>
+                                    <Label Content="{x:Static p:Resources.Res_采集时间}" VerticalAlignment="Center"/>
                                     <TextBox Text="{Binding P_measuredTime,Converter={StaticResource dtfc_0}}"
-                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
+             MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" IsReadOnly="True"/>
 
-
-                                    <Label Content="CPS阈值设置：" VerticalAlignment="Center"/>
+                                    <Label Content="{x:Static p:Resources.Res_CPS阈值设置}" VerticalAlignment="Center"/>
                                     <TextBox Text="{Binding CpsThreshold,UpdateSourceTrigger=PropertyChanged}"
-                         MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" />
+             MinWidth="79" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,7,0" />
 
                                 </StackPanel>
                             </StackPanel>
