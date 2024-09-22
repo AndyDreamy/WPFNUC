@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:核素识别仪.自定义控件"
+             xmlns:p="clr-namespace:核素识别仪.Properties"
              mc:Ignorable="d" Height="175" Width="430" FontSize="16" Background="White"
              >
     <Border BorderBrush="Black" BorderThickness="1.5" CornerRadius="5">
@@ -16,7 +17,10 @@
 
             <DockPanel>
                 <Button Content="×" Click="bt_Close_Click" Width="48" Style="{StaticResource ButtonStyle_App}" FontSize="25" Background="#FFFF4545" Foreground="White" Padding="0,-3,0,0" HorizontalContentAlignment="Center" Height="32" DockPanel.Dock="Right" Margin="0,0,8,0"/>
-                <Label Content="提示：" VerticalAlignment="Center" Height="30"/>
+                <TextBlock VerticalAlignment="Center" Height="30">
+                    <Run Text="{x:Static p:Resources.Res_提示}"/>
+                    <Run Text=":"/>
+                </TextBlock>
 
             </DockPanel>
 

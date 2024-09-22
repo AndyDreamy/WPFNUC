@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,134 +59,227 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="Res_谱图采集" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Res_谱图采集" xml:space="preserve">
     <value>谱图采集</value>
   </data>
-	<data name="Res_采集" xml:space="preserve">
+  <data name="Res_采集" xml:space="preserve">
     <value>采集</value>
   </data>
-	<data name="Res_停止" xml:space="preserve">
-  <value>停止</value>
-</data>
-	<data name="Res_清空" xml:space="preserve">
-  <value>清空</value>
-</data>
-	<data name="Res_核素识别" xml:space="preserve">
-  <value>核素识别</value>
-</data>
-	<data name="Res_核素库" xml:space="preserve">
-  <value>核素库</value>
-</data>
-	<data name="Res_手动稳峰" xml:space="preserve">
-  <value>手动稳峰</value>
-</data>
-	<data name="Res_打开文件" xml:space="preserve">
-  <value>打开文件</value>
-</data>
-	<data name="Res_保存文件" xml:space="preserve">
-  <value>保存文件</value>
-</data>
-	<data name="Res_串口设置" xml:space="preserve">
-  <value>串口设置</value>
-</data>
-	<data name="Res_道址" xml:space="preserve">
-  <value>道址：</value>
-</data>
-	<data name="Res_计数" xml:space="preserve">
-  <value>计数：</value>
-</data>
-	<data name="Res_能量" xml:space="preserve">
-  <value>能量：</value>
-</data>
-	<data name="Res_CPS" xml:space="preserve">
-  <value>CPS：</value>
-</data>
-	<data name="Res_剂量率" xml:space="preserve">
-  <value>剂量率：</value>
-</data>
-	<data name="Res_采集" xml:space="preserve">
-  <value>采集</value>
-</data>
-	<data name="Res_停止" xml:space="preserve">
-  <value>停止</value>
-</data>
-	<data name="Res_清空" xml:space="preserve">
-  <value>清空</value>
-</data>
-	<data name="Res_串口设置" xml:space="preserve">
-  <value>串口设置</value>
-</data>
-	<data name="Res_开始时间" xml:space="preserve">
-  <value>开始时间：</value>
-</data>
-	<data name="Res_采集时间" xml:space="preserve">
-  <value>采集时间(s)：</value>
-</data>
-	<data name="Res_CPS阈值设置" xml:space="preserve">
-  <value>CPS阈值设置：</value>
-</data>
-	<data name="Res_检索" xml:space="preserve">
-  <value>检索</value>
-</data>
-	<data name="Res_计数率监测" xml:space="preserve">
-  <value>计数率监测</value>
-</data>
+  <data name="Res_停止" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Res_清空" xml:space="preserve">
+    <value>清空</value>
+  </data>
+  <data name="Res_核素识别" xml:space="preserve">
+    <value>核素识别</value>
+  </data>
+  <data name="Res_核素库" xml:space="preserve">
+    <value>核素库</value>
+  </data>
+  <data name="Res_手动稳峰" xml:space="preserve">
+    <value>手动稳峰</value>
+  </data>
+  <data name="Res_打开文件" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="Res_保存文件" xml:space="preserve">
+    <value>保存文件</value>
+  </data>
+  <data name="Res_串口设置" xml:space="preserve">
+    <value>串口设置</value>
+  </data>
+  <data name="Res_道址" xml:space="preserve">
+    <value>道址：</value>
+  </data>
+  <data name="Res_计数" xml:space="preserve">
+    <value>计数：</value>
+  </data>
+  <data name="Res_能量" xml:space="preserve">
+    <value>能量(keV)</value>
+  </data>
+  <data name="Res_CPS" xml:space="preserve">
+    <value>CPS：</value>
+  </data>
+  <data name="Res_剂量率" xml:space="preserve">
+    <value>剂量率：</value>
+  </data>
+  <data name="Res_开始时间" xml:space="preserve">
+    <value>开始时间：</value>
+  </data>
+  <data name="Res_采集时间" xml:space="preserve">
+    <value>采集时间(s)：</value>
+  </data>
+  <data name="Res_CPS阈值设置" xml:space="preserve">
+    <value>CPS阈值设置：</value>
+  </data>
+  <data name="Res_检索" xml:space="preserve">
+    <value>检索</value>
+  </data>
+  <data name="Res_计数率监测" xml:space="preserve">
+    <value>计数率监测</value>
+  </data>
+  <data name="Res_测量活度" xml:space="preserve">
+    <value>测量活度</value>
+  </data>
+  <data name="Res_核素活度刻度因子" xml:space="preserve">
+    <value>核素活度刻度因子</value>
+  </data>
+  <data name="Res_选择要识别的核素" xml:space="preserve">
+    <value>选择要识别的核素</value>
+  </data>
+  <data name="Res_串口号" xml:space="preserve">
+    <value>串口号</value>
+  </data>
+  <data name="Res_扫描串口" xml:space="preserve">
+    <value>扫描串口</value>
+  </data>
+  <data name="Res_停止位" xml:space="preserve">
+    <value>停止位</value>
+  </data>
+  <data name="Res_波特率" xml:space="preserve">
+    <value>波特率</value>
+  </data>
+  <data name="Res_校验位" xml:space="preserve">
+    <value>校验位</value>
+  </data>
+  <data name="Res_数据位" xml:space="preserve">
+    <value>数据位</value>
+  </data>
+  <data name="Res_打开串口" xml:space="preserve">
+    <value>打开串口</value>
+  </data>
+  <data name="Res_关闭串口" xml:space="preserve">
+    <value>关闭串口</value>
+  </data>
+  <data name="Res_串口已关闭" xml:space="preserve">
+    <value>串口已关闭</value>
+  </data>
+  <data name="Res_串口已打开" xml:space="preserve">
+    <value>串口已打开</value>
+  </data>
+  <data name="Res_提示" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Res_搜索核素名称" xml:space="preserve">
+    <value>搜索核素名称:</value>
+  </data>
+  <data name="Res_核素名称" xml:space="preserve">
+    <value>核素名称</value>
+  </data>
+  <data name="Res_半衰期" xml:space="preserve">
+    <value>半衰期</value>
+  </data>
+  <data name="Res_核素能量分支" xml:space="preserve">
+    <value>核素能量分支</value>
+  </data>
+  <data name="Res_最小分支比" xml:space="preserve">
+    <value>最小分支比:</value>
+  </data>
+  <data name="Res_分支比" xml:space="preserve">
+    <value>分支比</value>
+  </data>
+  <data name="Res_添加" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Res_当前核素列表" xml:space="preserve">
+    <value>当前核素列表</value>
+  </data>
+  <data name="Res_删除" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Res_重置" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Res_保存" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Res_所在核素库" xml:space="preserve">
+    <value>所在核素库</value>
+  </data>
+  <data name="Res_添加到核素库" xml:space="preserve">
+    <value>您希望将此核素信息添加到哪个核素库？</value>
+  </data>
+  <data name="Res_选择使用中的核素库" xml:space="preserve">
+    <value>选择使用中的核素库：</value>
+  </data>
+  <data name="Res_自定义新核素库名称" xml:space="preserve">
+    <value>自定义新核素库名称：</value>
+  </data>
+  <data name="Res_确定" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Res_取消" xml:space="preserve">
+    <value>取消</value>
+  </data>
+	<data name="Res_加载成功" xml:space="preserve">
+    <value>加载成功</value>
+  </data>
+	<data name="Res_加载失败" xml:space="preserve">
+    <value>加载失败</value>
+  </data>
+	<data name="Res_详情" xml:space="preserve">
+    <value>详情</value>
+  </data>
+	<data name="Res_未识别" xml:space="preserve">
+    <value>未识别</value>
+  </data>
 </root>

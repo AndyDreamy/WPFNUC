@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:核素识别仪.小窗口"
+        xmlns:p="clr-namespace:核素识别仪.Properties"
         mc:Ignorable="d" Closing="Window_Closing"  Loaded="Window_Loaded"   DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="编辑核素库" Height="450" WindowStartupLocation="CenterScreen" Width="768">
     <Window.Resources>
@@ -17,109 +18,90 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Header="核素库" BorderBrush="Black" Margin="5">
-
+        <GroupBox Header="{x:Static p:Resources.Res_核素库}" BorderBrush="Black" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="34"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
                 <StackPanel Orientation="Horizontal" Margin="3">
-                    <Label Content="搜索核素名称:" Padding="2,0" VerticalAlignment="Center" Margin="0,0,2,0"/>
+                    <Label Content="{x:Static p:Resources.Res_搜索核素名称}" Padding="2,0" VerticalAlignment="Center" Margin="0,0,2,0"/>
                     <TextBox Margin="0,5" Width="101" Text="{Binding P_searchNucName,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </StackPanel>
-
                 <DataGrid x:Name="dg_NucLibAll" AutoGenerateColumns="False" Margin="3" Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" ColumnHeaderStyle="{DynamicResource CenterHeader}" 
-                         SelectedCellsChanged="dg_NucLibAll_SelectedCellsChanged" IsReadOnly="True" >
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Header="核素名称" Binding="{Binding P_nucName}"  ElementStyle="{StaticResource CenterTextBlock}" Width="100"/>
-                        <DataGridTextColumn Header="半衰期" Binding="{Binding P_halfLife}"  ElementStyle="{StaticResource CenterTextBlock}" Width="92"/>
+                 SelectedCellsChanged="dg_NucLibAll_SelectedCellsChanged" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static p:Resources.Res_核素名称}" Binding="{Binding P_nucName}" ElementStyle="{StaticResource CenterTextBlock}" Width="100"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.Res_半衰期}" Binding="{Binding P_halfLife}" ElementStyle="{StaticResource CenterTextBlock}" Width="92"/>
                     </DataGrid.Columns>
                 </DataGrid>
-
             </Grid>
-
         </GroupBox>
 
-        <GroupBox Header="核素能量分支" BorderBrush="Black" Margin="5" Grid.Column="1">
-
+        <GroupBox Header="{x:Static p:Resources.Res_核素能量分支}" BorderBrush="Black" Margin="5" Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="34"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
                 <StackPanel Orientation="Horizontal" Margin="3">
                     <Label Content="{Binding P_selectedNucName}" Padding="2,0" VerticalAlignment="Center" Margin="0,0,2,0" FontSize="16" FontWeight="Bold" Width="78"/>
-                    <Label Content="最小分支比:" Padding="2,0" VerticalAlignment="Center" Margin="0,0,2,0"/>
+                    <Label Content="{x:Static p:Resources.Res_最小分支比}" Padding="2,0" VerticalAlignment="Center" Margin="0,0,2,0"/>
                     <TextBox Margin="0,5" Width="71.2" Text="{Binding P_minBranch,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </StackPanel>
-
                 <DataGrid x:Name="dg_NucEnergies" AutoGenerateColumns="False" Margin="3" Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" ColumnHeaderStyle="{DynamicResource CenterHeader}" IsReadOnly="True">
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Width="70" Header="能量(keV)" Binding="{Binding P_energy}" ElementStyle="{StaticResource CenterTextBlock}"/>
-                        <DataGridTextColumn Width="74" Header="分支比" Binding="{Binding P_branch}" ElementStyle="{StaticResource CenterTextBlock}"/>
-                        <DataGridTemplateColumn Width="53" Header="" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="70" Header="{x:Static p:Resources.Res_能量}" Binding="{Binding P_energy}" ElementStyle="{StaticResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="74" Header="{x:Static p:Resources.Res_分支比}" Binding="{Binding P_branch}" ElementStyle="{StaticResource CenterTextBlock}"/>
+                        <DataGridTemplateColumn Width="53">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="添加" Style="{DynamicResource ButtonStyle_App}"
-                                            Margin="5,2"  Click="AddEnergy_Click_Click" />
+                                    <Button Content="{x:Static p:Resources.Res_添加}" Style="{DynamicResource ButtonStyle_App}" Margin="5,2" Click="AddEnergy_Click_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-
             </Grid>
-
         </GroupBox>
 
-        <GroupBox Header="当前核素列表" BorderBrush="Black" Margin="5" Grid.Column="2">
-
-
+        <GroupBox Header="{x:Static p:Resources.Res_当前核素列表}" BorderBrush="Black" Margin="5" Grid.Column="2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="34"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
                 <StackPanel Orientation="Horizontal" Margin="3">
-
-                    <Button Content="添加" Click="AddNewNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
-                    <Button Content="删除" Click="DeleteNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
-                    <Button Content="重置" Click="ResetNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
-                    <Button Content="保存" Click="SaveNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
-
+                    <Button Content="{x:Static p:Resources.Res_添加}" Click="AddNewNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
+                    <Button Content="{x:Static p:Resources.Res_删除}" Click="DeleteNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
+                    <Button Content="{x:Static p:Resources.Res_重置}" Click="ResetNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
+                    <Button Content="{x:Static p:Resources.Res_保存}" Click="SaveNuc_Click" Margin="2,2,5,2" Style="{StaticResource ButtonStyle_App}" Background="{DynamicResource Color_Button}" Padding="5,1" Width="44"/>
                 </StackPanel>
-
                 <DataGrid x:Name="dg_NucLib" AutoGenerateColumns="False" Margin="3" ColumnHeaderStyle="{DynamicResource CenterHeader}" Grid.Row="1" CanUserAddRows="False" IsReadOnly="True">
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Header="核素名称" Binding="{Binding P_nucName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="能量(keV)" Binding="{Binding P_energy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="所在核素库" Binding="{Binding P_libName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static p:Resources.Res_核素名称}" Binding="{Binding P_nucName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.Res_能量}" Binding="{Binding P_energy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.Res_所在核素库}" Binding="{Binding P_libName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-
             </Grid>
         </GroupBox>
 
         <Border x:Name="border_SelectLibName" Visibility="Hidden" BorderBrush="Black" CornerRadius="8" BorderThickness="1.5" Grid.RowSpan="5" Grid.ColumnSpan="5" Width="328" Height="182" Background="#FFDFFEFF">
             <StackPanel Orientation="Vertical" Margin="10">
-                <Label Content="您希望将此核素信息添加到哪个核素库？" Margin="{DynamicResource bottom1}"/>
+                <Label Content="{x:Static p:Resources.Res_添加到核素库}" Margin="{DynamicResource bottom1}"/>
                 <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
-                    <Label Content="选择使用中的核素库："/>
+                    <Label Content="{x:Static p:Resources.Res_选择使用中的核素库}"/>
                     <ComboBox x:Name="cb_LibNames" Style="{StaticResource ComboBoxStyle_Andy}" Width="138" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="{DynamicResource bottom1}">
-                    <Label Content="自定义新核素库名称："/>
+                    <Label Content="{x:Static p:Resources.Res_自定义新核素库名称}"/>
                     <TextBox x:Name="tb_SelectedLibName" Text="{Binding ElementName=cb_LibNames,Path=Text,Mode=Default}" Width="138" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="{DynamicResource bottom1}">
-                    <Button Content="确定" Click="bt_SelectLibNameOK_Click" Margin="2,2,21,2" Style="{StaticResource ButtonStyle_App}" Background="#FF75ECFF" Padding="5,1" Width="96" Height="25"/>
-                    <Button Content="取消" Click="bt_SelectLibNameCancel_Click" Margin="2" Style="{StaticResource ButtonStyle_App}" Background="#FF75ECFF" Padding="5,1" Width="96" Height="25"/>
+                    <Button Content="{x:Static p:Resources.Res_确定}" Click="bt_SelectLibNameOK_Click" Margin="2,2,21,2" Style="{StaticResource ButtonStyle_App}" Background="#FF75ECFF" Padding="5,1" Width="96" Height="25"/>
+                    <Button Content="{x:Static p:Resources.Res_取消}" Click="bt_SelectLibNameCancel_Click" Margin="2" Style="{StaticResource ButtonStyle_App}" Background="#FF75ECFF" Padding="5,1" Width="96" Height="25"/>
                 </StackPanel>
-
             </StackPanel>
         </Border>
 

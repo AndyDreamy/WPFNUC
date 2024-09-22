@@ -1607,20 +1607,20 @@ namespace 核素识别仪
                 f_Sp.andySP.switchSerialPort_Click(this, null);
                 if (f_Sp.andySP._serialPort.IsOpen)
                 {
-                    Console.WriteLine("串口已开启" + comName);
-                    w_Note.ShowNote("串口已开启" + comName, 1500);
+                    Console.WriteLine(Properties.Resources.Res_串口已打开 + comName);
+                    w_Note.ShowNote(Properties.Resources.Res_串口已打开 + comName, 1500);
                     configOK &= true;
                 }
                 else
                 {
-                    Console.WriteLine("串口未开启" + comName);
+                    Console.WriteLine(Properties.Resources.Res_串口已关闭 + comName);
                     //MessageBox.Show("串口未连接", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                     configOK &= false;
                 }
             }
             else
             {
-                Console.WriteLine("串口未开启" + comName);
+                Console.WriteLine(Properties.Resources.Res_串口已关闭 + comName);
                 MessageBox.Show("串口未连接", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                 configOK &= false;
             }

@@ -616,7 +616,7 @@ namespace 核素识别仪.集成的数据类
                 if (confidence == 0 && isPeaksShown)
                 {
                     //若isPeaksShown为true，则把这个未识别的结果也填进去
-                    recoResults.Add(new RecoResult(channel, "未识别", peakEnergy, 0, 0, 0));
+                    recoResults.Add(new RecoResult(channel, Properties.Resources.Res_未识别, peakEnergy, 0, 0, 0));
                 }
 
             }

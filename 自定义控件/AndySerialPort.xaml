@@ -3,145 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             
+             xmlns:p="clr-namespace:核素识别仪.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <UserControl.Resources>
-        <!--#region 定义按钮样式 -->
-        <Style TargetType="Button" x:Key="ButtonStyle1">
-            <!--<Setter Property="Foreground" Value="Black"/>-->
-            <!--修改模板属性-->
-            <Setter Property="Template">
-                <Setter.Value>
-                    <!--控件模板-->
-                    <ControlTemplate TargetType="Button">
-
-                        <!--背景border-->
-                        <Border x:Name="backBorder" Opacity="1" CornerRadius="6" >
-                            <!--CornerRadius圆角-->
-
-                            <!--背景色，无边框，一个渐变色，颜色与按钮的background有关-->
-                            <Border.Background>
-                                <!--渐变色-->
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1.5">
-                                    <GradientBrush.GradientStops>
-                                        <GradientStopCollection>
-                                            <GradientStop Color="White" Offset="0"/>
-                                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0.4"/>
-                                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0.054"/>
-                                            <GradientStop Color="White" Offset="1"/>
-                                        </GradientStopCollection>
-                                    </GradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </Border.Background>
-
-
-                            <!--前景色及边框-->
-                            <Border x:Name="foreBorder" BorderThickness="1" CornerRadius="6" BorderBrush="#5555">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientBrush.GradientStops>
-                                            <GradientStopCollection>
-                                                <GradientStop Color="#6FFF" Offset="0.5"/>
-                                                <GradientStop Color="#00FFFFFF" Offset="0.51"/>
-                                            </GradientStopCollection>
-                                        </GradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-
-                                <!--<Border.BitmapEffect>
-                                    <OuterGlowBitmapEffect GlowSize="15" GlowColor="#FFFFD90C" />
-                                </Border.BitmapEffect>-->
-
-                                <!--按钮内容-->
-
-                                <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}">
-                                    <ContentPresenter.BitmapEffect>
-                                        <DropShadowBitmapEffect Color="#000" Direction="326" ShadowDepth="1" Softness="0.1" Opacity="0.065" />
-                                    </ContentPresenter.BitmapEffect>
-                                </ContentPresenter>
-                            </Border>
-                        </Border>
-
-                        <!--触发器，内含动画-->
-                        <ControlTemplate.Triggers>
-                            <!--鼠标移入移出-->
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation To="#AFFF" BeginTime="0:0:0" Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
-                                            <ColorAnimation To="#3FFF" BeginTime="0:0:0" Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
-                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                            <!--按钮按下弹起-->
-                            <Trigger Property="IsPressed" Value="True">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation To="#3AAA" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
-                                            <ColorAnimation To="#2111" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
-                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                            <!--按钮失效-->
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Foreground" Value="#B444"/>
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation To="#D555" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />
-                                            <ColorAnimation To="#CEEE" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
-                                            <ColorAnimation To="#CDDD" Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(ContentPresenter.BitmapEffect).(DropShadowBitmapEffect.Opacity)" />
-                                            <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(ContentPresenter.BitmapEffect).(DropShadowBitmapEffect.Direction)" />
-                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(ContentPresenter.BitmapEffect).(DropShadowBitmapEffect.Color)" />
-                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />
-                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
-                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="foreBorder" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!--#endregion-->
     </UserControl.Resources>
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel x:Name="sp_SerialPortSet" Orientation="Vertical"  VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,18">
-                <TextBlock Text="串口号" Width="auto" Height="auto" Margin="5,0" Padding="0,3,0,0" FontSize="14"/>
+                <TextBlock Text="{x:Static p:Resources.Res_串口号}" Width="auto" Height="auto" Margin="5,0" Padding="0,3,0,0" FontSize="14"/>
                 <ComboBox Style="{DynamicResource ComboBoxStyle2}" Name="cb_SerialPortNumber" Width="75" Margin="5,0" HorizontalContentAlignment="Center" FontSize="14" Padding="3" VerticalContentAlignment="Center" BorderBrush="#FF949494" >
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -150,11 +23,13 @@
                         </LinearGradientBrush>
                     </ComboBox.Background>
                 </ComboBox>
-                <Button x:Name="bt_SearchSerial" Content="扫描串口" Width="73" Margin="10,0" Padding="0" Click="bt_SearchSerial_Click" Style="{StaticResource ButtonStyle1}" Background="#FF67DBFF" Height="24" FontSize="14"/>
-                <CheckBox x:Name="check_SwitchSPRece" Content="串口接收" IsChecked="{Binding IsSPReceRecord}" Width="92" Margin="0,0,10,0" Padding="0"  Background="#FF67DBFF" Height="24" FontSize="14" VerticalContentAlignment="Center"/>
+                <Button x:Name="bt_SearchSerial" Content="{x:Static p:Resources.Res_扫描串口}" Margin="10,0" Click="bt_SearchSerial_Click" Style="{StaticResource ButtonStyle_App}" Background="#FF67DBFF" Height="24" FontSize="14"/>
+                
+                <!--此功能隐藏-->
+                <CheckBox x:Name="check_SwitchSPRece" Visibility="Collapsed" Content="串口接收" IsChecked="{Binding IsSPReceRecord}" Width="92" Margin="0,0,10,0" Padding="0"  Background="#FF67DBFF" Height="24" FontSize="14" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,18">
-                <TextBlock Text="停止位" Margin="5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
+                <TextBlock Text="{x:Static p:Resources.Res_停止位}" Margin="5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
                 <ComboBox  x:Name="cb_StopBits" Width="75" Margin="5,0" HorizontalContentAlignment="Center" FontSize="14" Padding="3" VerticalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle2}" BorderBrush="#FF949494">
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -163,7 +38,7 @@
                         </LinearGradientBrush>
                     </ComboBox.Background>
                 </ComboBox>
-                <TextBlock Text="波特率" Margin="10,0,5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
+                <TextBlock Text="{x:Static p:Resources.Res_波特率}" Margin="10,0,5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
                 <ComboBox x:Name="cb_BaudRate" Width="75" Margin="5,0,8,0" SelectedIndex="3" FontSize="14" Padding="2,3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle2}" BorderBrush="#FF949494">
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -174,7 +49,7 @@
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,18">
-                <TextBlock Text="校验位" Margin="5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
+                <TextBlock Text="{x:Static p:Resources.Res_校验位}" Margin="5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
                 <ComboBox  x:Name="cb_Parity" Width="75" Margin="5,0" HorizontalContentAlignment="Center" FontSize="14" Padding="3" VerticalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle2}" BorderBrush="#FF949494">
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -183,7 +58,7 @@
                         </LinearGradientBrush>
                     </ComboBox.Background>
                 </ComboBox>
-                <TextBlock Text="数据位" Margin="10,0,5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
+                <TextBlock Text="{x:Static p:Resources.Res_数据位}" Margin="10,0,5,0" Width="auto" Padding="0,3,0,0" FontSize="14"/>
                 <ComboBox  x:Name="cb_DataBits" Width="75" Margin="5,0" HorizontalContentAlignment="Center" FontSize="14" Padding="3" VerticalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle2}" BorderBrush="#FF949494">
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -194,8 +69,8 @@
                 </ComboBox>
             </StackPanel>
             <StackPanel x:Name="sp_hang4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,3,0,0">
-                <TextBlock Name="tb_switchStatus" Text="串口已关闭" Width="auto" Height="auto" Margin="29,0,15,0" Padding="0,5,0,0" FontSize="14"/>
-                <Button x:Name="bt_SerialSwitch" Content="打开串口" Width="83" Margin="20,0,10,0" Padding="0,0,0,0" Click="switchSerialPort_Click" Style="{StaticResource ButtonStyle1}" Background="#FF67DBFF" Height="28" FontSize="14"/>
+                <TextBlock Name="tb_switchStatus" Text="{x:Static p:Resources.Res_串口已关闭}" Width="auto" Height="auto" Margin="29,0,15,0" Padding="0,5,0,0" FontSize="14"/>
+                <Button x:Name="bt_SerialSwitch" Content="{x:Static p:Resources.Res_打开串口}" Margin="20,0,10,0" Click="switchSerialPort_Click" Style="{StaticResource ButtonStyle_App}" Background="#FF67DBFF" Height="28" FontSize="14"/>
                 <Ellipse Name="e_status" Fill="red" Height="15" Width="15" Stroke="black" Margin="6,0"/>
             </StackPanel>
         </StackPanel>

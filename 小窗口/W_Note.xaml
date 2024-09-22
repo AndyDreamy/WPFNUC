@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:核素识别仪.小窗口"
+        xmlns:p="clr-namespace:核素识别仪.Properties"
         mc:Ignorable="d" Closing="Window_Closing"
-        Title="提示" Height="175" Width="430" FontSize="16" WindowStartupLocation="CenterScreen">
+        Title="{x:Static p:Resources.Res_提示}" Height="175" Width="430" FontSize="16" WindowStartupLocation="CenterScreen">
     <Grid Margin="5">
         <TextBox x:Name="tb_Note" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" IsReadOnly="True"/>
     </Grid>

@@ -10,6 +10,8 @@
 
         <!--#region 定义按钮样式 -->
         <Style TargetType="{x:Type Button}" x:Key="ButtonStyle_App">
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="Width" Value="auto" />
             <!--<Setter Property="Foreground" Value="Black"/>-->
             <!--修改模板属性-->
             <Setter Property="Template">

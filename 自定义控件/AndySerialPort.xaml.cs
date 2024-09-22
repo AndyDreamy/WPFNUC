@@ -193,15 +193,15 @@ namespace 核素识别仪.自定义控件
         public void switchSerialPort_Click(object sender, RoutedEventArgs e)
         {
             string str_SerialSwitch = bt_SerialSwitch.Content.ToString();
-            if (str_SerialSwitch == "打开串口")
+            if (str_SerialSwitch == Properties.Resources.Res_打开串口)
             {
                 try
                 {
                     setPara_SerialPort();//打开串口时设置各类参数
                     _serialPort.Open();
                     //_serialPort.DataReceived += _serialPort_DataReceived;//添加接受事件
-                    bt_SerialSwitch.Content = "关闭串口";
-                    tb_switchStatus.Text = "串口已打开";
+                    bt_SerialSwitch.Content = Properties.Resources.Res_关闭串口;
+                    tb_switchStatus.Text = Properties.Resources.Res_串口已打开;
                     e_status.Fill = new SolidColorBrush(Colors.LightGreen);
                     #region 打开串口后，禁止修改串口参数
                     cb_BaudRate.IsEnabled = false;
@@ -223,8 +223,9 @@ namespace 核素识别仪.自定义控件
             {
                 //_serialPort.DataReceived -= _serialPort_DataReceived;//删除接收事件
                 _serialPort.Close();
-                bt_SerialSwitch.Content = "打开串口";
-                tb_switchStatus.Text = "串口已关闭";
+                bt_SerialSwitch.Content = Properties.Resources.Res_打开串口;
+                tb_switchStatus.Text = Properties.Resources.Res_串口已关闭;
+                
                 e_status.Fill = new SolidColorBrush(Colors.Red);
                 #region 关闭串口后，允许修改串口参数
                 cb_BaudRate.IsEnabled = true;
@@ -681,8 +682,8 @@ namespace 核素识别仪.自定义控件
             {
                 #region 让串口设置界面变成未连接状态
 
-                bt_SerialSwitch.Content = "打开串口";
-                tb_switchStatus.Text = "串口已关闭";
+                bt_SerialSwitch.Content = Properties.Resources.Res_打开串口;
+                tb_switchStatus.Text = Properties.Resources.Res_串口已关闭;
                 e_status.Fill = new SolidColorBrush(Colors.Red);
                 #region 关闭串口后，允许修改串口参数
                 cb_BaudRate.IsEnabled = true;

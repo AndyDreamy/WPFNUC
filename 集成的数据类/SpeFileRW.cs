@@ -113,11 +113,11 @@ namespace 核素识别仪.集成的数据类
 
                 #endregion
 
-                MainWindow.Instance.w_Note.ShowNote("加载成功", 1500);
+                MainWindow.Instance.w_Note.ShowNote(Properties.Resources.Res_加载成功, 1500);
             }
             catch (Exception e)
             {
-                MainWindow.Instance.w_Note.ShowNote("加载失败，详情："+e.Message, 1500);
+                MainWindow.Instance.w_Note.ShowNote($"{Properties.Resources.Res_加载失败}，{Properties.Resources.Res_详情}：{e.Message}", 1500);
             }
 
 
