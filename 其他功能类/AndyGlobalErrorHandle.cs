@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using 核素识别仪.Utils;
 
 namespace 核素识别仪.其他功能类
 {
@@ -21,9 +22,10 @@ namespace 核素识别仪.其他功能类
             Exception ex = e.Exception;
             string type = "Task线程";
 
-            string msg = GetErrorMsg(ex, type);
+            //string msg = GetErrorMsg(ex, type);
 
-            SaveErrorMsg(msg);
+            //SaveErrorMsg(msg);
+            AndyLogger.Ins.Logger.Error(ex, $"全局异常处理_{type}");
         }
 
         /// <summary>
@@ -36,9 +38,10 @@ namespace 核素识别仪.其他功能类
             {
                 string type = "非UI子线程";
 
-                string msg = GetErrorMsg(ex, type);
+                //string msg = GetErrorMsg(ex, type);
 
-                SaveErrorMsg(msg);
+                //SaveErrorMsg(msg);
+                AndyLogger.Ins.Logger.Error(ex, $"全局异常处理_{type}");
             }
         }
 
@@ -53,9 +56,10 @@ namespace 核素识别仪.其他功能类
 
             string type = "UI主线程";
 
-            string msg = GetErrorMsg(ex, type);
+            //string msg = GetErrorMsg(ex, type);
 
-            SaveErrorMsg(msg);
+            //SaveErrorMsg(msg);
+            AndyLogger.Ins.Logger.Error(ex, $"全局异常处理_{type}");
         }
 
         /// <summary>
