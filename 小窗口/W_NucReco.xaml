@@ -4,16 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:核素识别仪.小窗口"
+        xmlns:p="clr-namespace:核素识别仪.Properties"
         mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Loaded="Window_Loaded" Closing="Window_Closing"
-        Title="核素识别" Height="460" Width="597.5" WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="{x:Static p:Resources.Res_核素识别}" Height="460" Width="900" WindowStartupLocation="CenterScreen" Topmost="True">
 
     <Grid Margin="0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="114*"/>
-            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="56*"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="核素识别结果" BorderBrush="Black" Margin="2">
+        <GroupBox Header="{x:Static p:Resources.Res_识别核素结果}" BorderBrush="Black" Margin="2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32"/>
@@ -21,25 +22,25 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
-                    <Button Content="手动识别" Click="bt_ManualReco_Click" Style="{StaticResource ButtonStyle_App}" Width="82" Height="27"/>
-                    <CheckBox x:Name="cb_ifShowPeaks" Content="是否显示未识别的峰" IsChecked="{Binding P_isPeaksShown}" VerticalAlignment="Center" Margin="18,0,8,0"/>
+                    <Button Content="{x:Static p:Resources.Res_手动识别}" Click="bt_ManualReco_Click" Style="{StaticResource ButtonStyle_App}" MinWidth="82" Height="27"/>
+                    <CheckBox x:Name="cb_ifShowPeaks" Content="{x:Static p:Resources.Res_是否显示未识别的峰}" IsChecked="{Binding P_isPeaksShown}" VerticalAlignment="Center" Margin="18,0,8,0"/>
                 </StackPanel>
 
-                <DataGrid x:Name="dg_RecoResult" AutoGenerateColumns="False" Margin="3" ColumnHeaderStyle="{DynamicResource CenterHeader}" IsReadOnly="True" CanUserAddRows="False"
-                          Grid.Row="1">
+                <DataGrid x:Name="dg_RecoResult" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" Margin="3" ColumnHeaderStyle="{DynamicResource CenterHeader}" IsReadOnly="True" CanUserAddRows="False"
+                    Grid.Row="1">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="道址" Binding="{Binding P_channel}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="核素名称" Binding="{Binding P_nucName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="计算能量(keV)" Binding="{Binding P_peakEnergy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="标准能量(keV)" Binding="{Binding P_realEnergy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="误差(%)" Binding="{Binding P_error}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="置信度" Binding="{Binding P_confidence}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1*" Header="{x:Static p:Resources.Res_道址}" Binding="{Binding P_channel}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1*" Header="{x:Static p:Resources.Res_核素名称}" Binding="{Binding P_nucName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1*" Header="{x:Static p:Resources.Res_计算能量keV}" Binding="{Binding P_peakEnergy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1*" Header="{x:Static p:Resources.Res_标准能量keV}" Binding="{Binding P_realEnergy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1*" Header="{x:Static p:Resources.Res_误差}" Binding="{Binding P_error}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1*" Header="{x:Static p:Resources.Res_置信度}" Binding="{Binding P_confidence}" ElementStyle="{DynamicResource CenterTextBlock}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="识别核素列表" BorderBrush="Black" Margin="2" Grid.Column="1">
+        <GroupBox Header="{x:Static p:Resources.Res_识别核素列表}" BorderBrush="Black" Margin="2" Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32"/>
@@ -47,19 +48,18 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Margin="3">
-                    <Label Content="选择核素库:" Padding="2,0" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                    <ComboBox x:Name="cb_NucLibNames" Style="{DynamicResource ComboBoxStyle_Andy}" Width="91" Height="21" SelectionChanged="cb_NucLibNames_SelectionChanged" />
+                    <Label Content="{x:Static p:Resources.Res_选择核素库}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <ComboBox x:Name="cb_NucLibNames" Style="{DynamicResource ComboBoxStyle_Andy}" Width="auto" Height="21" SelectionChanged="cb_NucLibNames_SelectionChanged" />
                 </StackPanel>
 
                 <DataGrid x:Name="dg_NucToReco" AutoGenerateColumns="False" Margin="3" ColumnHeaderStyle="{DynamicResource CenterHeader}" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="1">
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="核素名称" Binding="{Binding P_nucName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
-                        <DataGridTextColumn Header="标准能量(keV)" Binding="{Binding P_energy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1*" Header="{x:Static p:Resources.Res_核素名称}" Binding="{Binding P_nucName}" ElementStyle="{DynamicResource CenterTextBlock}"/>
+                        <DataGridTextColumn Width="1.3*" Header="{x:Static p:Resources.Res_标准能量keV}" Binding="{Binding P_energy}" ElementStyle="{DynamicResource CenterTextBlock}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
             </Grid>
-
         </GroupBox>
 
 

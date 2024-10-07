@@ -95,7 +95,9 @@ namespace 核素识别仪.其他功能类.SQLite
             //确保连接到了一个数据库
             if (false)
             {
+#pragma warning disable CS0162 // 检测到无法访问的代码
                 string e = "删除表";
+#pragma warning restore CS0162 // 检测到无法访问的代码
                 Console.WriteLine(e + "失败，SQLite未连接到一个数据库");
                 return;
             }

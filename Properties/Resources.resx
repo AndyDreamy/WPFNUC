@@ -148,7 +148,7 @@
     <value>串口设置</value>
   </data>
   <data name="Res_道址" xml:space="preserve">
-    <value>道址：</value>
+    <value>道址</value>
   </data>
   <data name="Res_计数" xml:space="preserve">
     <value>计数：</value>
@@ -270,16 +270,67 @@
   <data name="Res_取消" xml:space="preserve">
     <value>取消</value>
   </data>
-	<data name="Res_加载成功" xml:space="preserve">
+  <data name="Res_加载成功" xml:space="preserve">
     <value>加载成功</value>
   </data>
-	<data name="Res_加载失败" xml:space="preserve">
+  <data name="Res_加载失败" xml:space="preserve">
     <value>加载失败</value>
   </data>
-	<data name="Res_详情" xml:space="preserve">
+  <data name="Res_详情" xml:space="preserve">
     <value>详情</value>
   </data>
-	<data name="Res_未识别" xml:space="preserve">
+  <data name="Res_未识别" xml:space="preserve">
     <value>未识别</value>
   </data>
+  <data name="Res_手动识别" xml:space="preserve">
+    <value>手动识别</value>
+  </data>
+  <data name="Res_是否显示未识别的峰" xml:space="preserve">
+    <value>是否显示未识别的峰</value>
+  </data>
+  <data name="Res_计算能量keV" xml:space="preserve">
+    <value>计算能量(keV)</value>
+  </data>
+  <data name="Res_标准能量keV" xml:space="preserve">
+    <value>标准能量(keV)</value>
+  </data>
+  <data name="Res_误差" xml:space="preserve">
+    <value>误差(%)</value>
+  </data>
+  <data name="Res_置信度" xml:space="preserve">
+    <value>置信度</value>
+  </data>
+  <data name="Res_识别核素列表" xml:space="preserve">
+    <value>识别核素列表</value>
+  </data>
+  <data name="Res_选择核素库" xml:space="preserve">
+    <value>选择核素库:</value>
+  </data>
+  <data name="Res_识别核素结果" xml:space="preserve">
+    <value>识别核素结果</value>
+  </data>
+  <data name="Res_编辑核素库" xml:space="preserve">
+    <value>编辑核素库:</value>
+  </data>
+  <data name="Res_ROI分析结果" xml:space="preserve">
+    <value>ROI分析结果</value>
+  </data>
+  <data name="Res_请在谱图上框选需要分析的范围" xml:space="preserve">
+    <value>请在谱图上框选需要分析的范围</value>
+  </data>
+  <data name="Res_选择区域" xml:space="preserve">
+    <value>选择区域</value>
+  </data>
+  <data name="Res_计算" xml:space="preserve">
+    <value>计算</value>
+  </data>
+  <data name="Res_停止稳峰" xml:space="preserve">
+    <value>停止稳峰</value>
+  </data>
+	<data name="Res_串口不存在或被占用" xml:space="preserve">
+  <value>串口不存在或被占用！</value>
+</data>
+	<data name="Res_失败" xml:space="preserve">
+  <value>失败</value>
+</data>
 </root>

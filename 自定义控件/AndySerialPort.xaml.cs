@@ -216,7 +216,7 @@ namespace 核素识别仪.自定义控件
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("串口不存在或被占用！", "失败", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.Res_串口不存在或被占用, Properties.Resources.Res_失败, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else

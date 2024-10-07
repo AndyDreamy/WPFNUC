@@ -79,6 +79,24 @@ namespace 核素识别仪.Properties {
         }
         
         /// <summary>
+        ///   查找类似 ROI分析结果 的本地化字符串。
+        /// </summary>
+        public static string Res_ROI分析结果 {
+            get {
+                return ResourceManager.GetString("Res_ROI分析结果", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 串口不存在或被占用！ 的本地化字符串。
+        /// </summary>
+        public static string Res_串口不存在或被占用 {
+            get {
+                return ResourceManager.GetString("Res_串口不存在或被占用", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 串口号 的本地化字符串。
         /// </summary>
         public static string Res_串口号 {
@@ -147,6 +165,15 @@ namespace 核素识别仪.Properties {
         public static string Res_停止位 {
             get {
                 return ResourceManager.GetString("Res_停止位", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止稳峰 的本地化字符串。
+        /// </summary>
+        public static string Res_停止稳峰 {
+            get {
+                return ResourceManager.GetString("Res_停止稳峰", resourceCulture);
             }
         }
         
@@ -223,6 +250,15 @@ namespace 核素识别仪.Properties {
         }
         
         /// <summary>
+        ///   查找类似 失败 的本地化字符串。
+        /// </summary>
+        public static string Res_失败 {
+            get {
+                return ResourceManager.GetString("Res_失败", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 开始时间： 的本地化字符串。
         /// </summary>
         public static string Res_开始时间 {
@@ -255,6 +291,15 @@ namespace 核素识别仪.Properties {
         public static string Res_手动稳峰 {
             get {
                 return ResourceManager.GetString("Res_手动稳峰", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 手动识别 的本地化字符串。
+        /// </summary>
+        public static string Res_手动识别 {
+            get {
+                return ResourceManager.GetString("Res_手动识别", resourceCulture);
             }
         }
         
@@ -313,6 +358,15 @@ namespace 核素识别仪.Properties {
         }
         
         /// <summary>
+        ///   查找类似 是否显示未识别的峰 的本地化字符串。
+        /// </summary>
+        public static string Res_是否显示未识别的峰 {
+            get {
+                return ResourceManager.GetString("Res_是否显示未识别的峰", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 最小分支比: 的本地化字符串。
         /// </summary>
         public static string Res_最小分支比 {
@@ -327,6 +381,15 @@ namespace 核素识别仪.Properties {
         public static string Res_未识别 {
             get {
                 return ResourceManager.GetString("Res_未识别", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 标准能量(keV) 的本地化字符串。
+        /// </summary>
+        public static string Res_标准能量keV {
+            get {
+                return ResourceManager.GetString("Res_标准能量keV", resourceCulture);
             }
         }
         
@@ -448,6 +511,24 @@ namespace 核素识别仪.Properties {
         }
         
         /// <summary>
+        ///   查找类似 编辑核素库: 的本地化字符串。
+        /// </summary>
+        public static string Res_编辑核素库 {
+            get {
+                return ResourceManager.GetString("Res_编辑核素库", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 置信度 的本地化字符串。
+        /// </summary>
+        public static string Res_置信度 {
+            get {
+                return ResourceManager.GetString("Res_置信度", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 能量(keV) 的本地化字符串。
         /// </summary>
         public static string Res_能量 {
@@ -484,11 +565,65 @@ namespace 核素识别仪.Properties {
         }
         
         /// <summary>
+        ///   查找类似 计算 的本地化字符串。
+        /// </summary>
+        public static string Res_计算 {
+            get {
+                return ResourceManager.GetString("Res_计算", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 计算能量(keV) 的本地化字符串。
+        /// </summary>
+        public static string Res_计算能量keV {
+            get {
+                return ResourceManager.GetString("Res_计算能量keV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 识别核素列表 的本地化字符串。
+        /// </summary>
+        public static string Res_识别核素列表 {
+            get {
+                return ResourceManager.GetString("Res_识别核素列表", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 识别核素结果 的本地化字符串。
+        /// </summary>
+        public static string Res_识别核素结果 {
+            get {
+                return ResourceManager.GetString("Res_识别核素结果", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 详情 的本地化字符串。
         /// </summary>
         public static string Res_详情 {
             get {
                 return ResourceManager.GetString("Res_详情", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 误差(%) 的本地化字符串。
+        /// </summary>
+        public static string Res_误差 {
+            get {
+                return ResourceManager.GetString("Res_误差", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请在谱图上框选需要分析的范围 的本地化字符串。
+        /// </summary>
+        public static string Res_请在谱图上框选需要分析的范围 {
+            get {
+                return ResourceManager.GetString("Res_请在谱图上框选需要分析的范围", resourceCulture);
             }
         }
         
@@ -511,6 +646,24 @@ namespace 核素识别仪.Properties {
         }
         
         /// <summary>
+        ///   查找类似 选择区域 的本地化字符串。
+        /// </summary>
+        public static string Res_选择区域 {
+            get {
+                return ResourceManager.GetString("Res_选择区域", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择核素库: 的本地化字符串。
+        /// </summary>
+        public static string Res_选择核素库 {
+            get {
+                return ResourceManager.GetString("Res_选择核素库", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 选择要识别的核素 的本地化字符串。
         /// </summary>
         public static string Res_选择要识别的核素 {
@@ -520,7 +673,7 @@ namespace 核素识别仪.Properties {
         }
         
         /// <summary>
-        ///   查找类似 道址： 的本地化字符串。
+        ///   查找类似 道址 的本地化字符串。
         /// </summary>
         public static string Res_道址 {
             get {

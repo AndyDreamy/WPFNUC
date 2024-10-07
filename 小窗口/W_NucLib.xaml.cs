@@ -173,7 +173,7 @@ namespace 核素识别仪.小窗口
             }
         }
 
-        private string selectedNucName = "核素名称";
+        private string selectedNucName = "Nuclide";
         /// <summary>
         /// 当前所选的的核素名称，显示在中间那部分
         /// </summary>

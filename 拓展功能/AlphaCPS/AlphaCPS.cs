@@ -233,7 +233,7 @@ namespace 核素识别仪.拓展功能.AlphaCPS
                 IsCollecting = false;
 
                 //提示
-                MessageBox.Show("串口中断，已自动停止采集", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.Res_串口已关闭, Properties.Resources.Res_提示, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

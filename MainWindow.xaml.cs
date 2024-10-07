@@ -1044,7 +1044,7 @@ namespace 核素识别仪
                 timer_Auto.Stop();
                 autoRun.P_isReading = false;
 
-                MessageBox.Show("串口连接断开，采集自动停止", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Properties.Resources.Res_串口已关闭, Properties.Resources.Res_提示, MessageBoxButton.OK, MessageBoxImage.Error);
 
                 goto end;
             }
@@ -1621,7 +1621,7 @@ namespace 核素识别仪
             else
             {
                 Console.WriteLine(Properties.Resources.Res_串口已关闭 + comName);
-                MessageBox.Show("串口未连接", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Properties.Resources.Res_串口已关闭, Properties.Resources.Res_提示, MessageBoxButton.OK, MessageBoxImage.Error);
                 configOK &= false;
             }
 
