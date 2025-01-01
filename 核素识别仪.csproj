@@ -325,4 +325,8 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)Resources\" "$(TargetDir)Resources\" /e /y
+xcopy "$(ProjectDir)ThirdPartLibrary\" "$(TargetDir)" /e /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
