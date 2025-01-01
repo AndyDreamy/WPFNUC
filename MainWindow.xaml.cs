@@ -404,9 +404,6 @@ namespace 核素识别仪
             #region 设置手否要给刘涛隐藏一部分内容，只需要设置P_isHideForLiuTao即可
             if (isHideForLiuTao == true)
             {
-                //隐藏右键菜单
-                menu_Window.Visibility = Visibility.Hidden;
-
                 //隐藏一些按钮：
                 bt_打开文件.Visibility = Visibility.Hidden;
                 bt_保存文件.Visibility = Visibility.Hidden;
@@ -427,9 +424,6 @@ namespace 核素识别仪
 
                 //显示一个串口设置按钮在外面
                 isShow串口设置 = true;
-
-                //隐藏右键菜单
-                menu_Window.Visibility = Visibility.Hidden;
 
                 ////更改标题
                 //this.Title = "Csl测试仪";

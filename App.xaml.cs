@@ -33,8 +33,8 @@ namespace 核素识别仪
             TaskScheduler.UnobservedTaskException += andyGEH.TaskScheduler_UnobservedTaskException;
 
             //语言选择
-            核素识别仪.Properties.Resources.Culture = new CultureInfo("en-US");
             核素识别仪.Properties.Resources.Culture = new CultureInfo("zh-CN");
+            核素识别仪.Properties.Resources.Culture = new CultureInfo("en-US");
         }
     }
 
