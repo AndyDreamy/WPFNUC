@@ -84,6 +84,7 @@
     <Compile Include="Converters\CPSThresholdToColorMultiConverter.cs" />
     <Compile Include="Converters\DoubleToFormatConverter.cs" />
     <Compile Include="Models\AlphaCPSData.cs" />
+    <Compile Include="Models\StaPeakInfoModel.cs" />
     <Compile Include="Properties\Resources.en-US.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using 核素识别仪.小窗口;
+using 核素识别仪.Models;
+using System.Threading;
+using System.Runtime.Remoting.Channels;
 
 namespace 核素识别仪.其他功能类
 {
@@ -108,7 +111,7 @@ namespace 核素识别仪.其他功能类
             }
         }
 
-        private double time_StabPeak = 20;
+        private double time_StabPeak = 200;
         /// <summary>
         /// 稳峰时间（s）
         /// </summary>
@@ -169,6 +172,11 @@ namespace 核素识别仪.其他功能类
             }
         }
 
+        /// <summary>
+        /// 稳峰组列表
+        /// </summary>
+        private List<StaPeakInfoModel> listStaPeakGroup = new List<StaPeakInfoModel>();
+
         #endregion
 
         #region 方法
@@ -205,15 +213,44 @@ namespace 核素识别仪.其他功能类
             //不让稳峰小界面关闭
             w_temp.canHide = false;
 
+            //开始前清空稳峰组列表
+            listStaPeakGroup.Clear();
+
             //开始采集
             Father.开始测量_Click(this, null);
 
             //连续采集一段时间——稳峰时间
-            w_temp.progress_StabPeak.Maximum = time_WarmUp;
-            for (int i = 0; i < time_WarmUp && !interrupt; i++)//这里，如果interrupt被设置为true，则会中断稳峰
+            w_temp.progress_StabPeak.Maximum = time_StabPeak;
+            for (int i = 0; i < time_StabPeak && !interrupt; i++)//这里，如果interrupt被设置为true，则会中断稳峰
             {
                 //进度条值更新
                 w_temp.progress_StabPeak.Value = i + 1;
+
+                //取一下识别峰位结果
+                foreach (int peakChannel in MainWindow.Instance.reco.P_peakIndexes)
+                {
+                    if (peakChannel >= KJudgeMin && peakChannel <= KJudgeMax)
+                    {
+                        int groupChannel = peakChannel / 10 * 10;
+                        StaPeakInfoModel group = listStaPeakGroup.Find(p => p.PeakGroupChannel == groupChannel);
+                        if (group != null)
+                        {
+                            group.FindCount++;
+                            group.PeadAverageChannel = (group.PeadAverageChannel + peakChannel) / 2d;
+                        }
+                        else
+                        {
+                            listStaPeakGroup.Add(new StaPeakInfoModel()
+                            {
+                                FindCount = 1,
+                                PeadAverageChannel = peakChannel,
+                                PeakGroupChannel = groupChannel,
+                            });
+                        }
+                    }
+                }
+
+                //延时1s
                 Father.adc.delay(1000);
             }
 
@@ -227,18 +264,23 @@ namespace 核素识别仪.其他功能类
             //获得稳峰结果
             if (!interrupt)//如果不是异常中断稳峰，才从寻到的峰中找K40的峰，否则就什么也不管，以文件中的保存至作为K40的峰位
             {
-                //遍历此时寻到的所有峰位
-                List<int> ins = Father.reco.P_peakIndexes;
-                for (int i = 0; i < ins.Count; i++)
+                //listStaPeakGroup个数不为0，说明出现过在查询范围内的道址
+                if (listStaPeakGroup.Count > 0)
                 {
-                    int channel = ins[i] + 1;
-                    //若一个峰在此范围中，则认为这是K40的峰
-                    if (channel >= KJudgeMin && channel <= KJudgeMax)
+                    int findCount = 0;
+                    double findChannel = 0;//找到次数最多的道址
+                    foreach (var gro in listStaPeakGroup)
                     {
-                        KChannel_Real = channel;
-                        situation = "(新)";
-                        break;
+                        if (gro.FindCount > findCount)
+                        {
+                            findCount = gro.FindCount;
+                            findChannel = gro.PeadAverageChannel;
+                        }
                     }
+
+                    //记录稳峰结果
+                    KChannel_Real = findChannel;
+                    situation = "(新)";
                 }
             }
             else
