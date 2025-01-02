@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using 核素识别仪.Models;
+using 核素识别仪.Parameters;
 using 核素识别仪.Servers.DataServer;
 using 核素识别仪.Utils;
 using 核素识别仪.其他功能类;
@@ -305,7 +306,7 @@ namespace 核素识别仪
         /// <summary>
         /// 控制是否隐藏一些内容，用于401马工。这个只能在程序里改
         /// </summary>
-        private bool isHideFor401Ma = true;
+        private bool isHideFor401Ma = false;
 
         /// <summary>
         /// 控制是否在显示串口设置
@@ -478,6 +479,8 @@ namespace 核素识别仪
                 //保存参数
                 Console.WriteLine(DateTime.Now.ToString("G") + ": " + "保存数据");
                 SaveParas();
+                //新版参数系统，写参数
+                ParaDataManager.Instance.WriteAllParas();
 
                 //强制关闭子线程
                 //Console.WriteLine(DateTime.Now.ToString("G") + ": " + "关闭线程");

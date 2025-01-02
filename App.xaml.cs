@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using 核素识别仪.Parameters;
 using 核素识别仪.其他功能类;
 
 namespace 核素识别仪
@@ -32,9 +33,14 @@ namespace 核素识别仪
             //Task线程内未捕获异常处理事件
             TaskScheduler.UnobservedTaskException += andyGEH.TaskScheduler_UnobservedTaskException;
 
+            //新版参数系统，读参数
+            ParaDataManager.Instance.ReadAllParas();
+
             //语言选择
-            核素识别仪.Properties.Resources.Culture = new CultureInfo("zh-CN");
-            核素识别仪.Properties.Resources.Culture = new CultureInfo("en-US");
+            if (ParaDataManager.Instance.CommonParas.Language == Models.LanguageEnum.Chinese)
+                核素识别仪.Properties.Resources.Culture = new CultureInfo("zh-CN");
+            else
+                核素识别仪.Properties.Resources.Culture = new CultureInfo("en-US");
         }
     }
 

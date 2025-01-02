@@ -75,7 +75,7 @@ namespace 核素识别仪.Servers.DataServer
         /// </summary>
         public void Init()
         {
-            cpsSQLite.P_dbPath = Path.Combine(PathHelper.Instance.DBFolderPath, cpsDBName);
+            cpsSQLite.P_dbPath = Path.Combine(PathHelper.DBFolderPath, cpsDBName);
             cpsSQLite.TestConnDB();
         }
 

@@ -50,9 +50,9 @@ namespace 核素识别仪.Utils
             //var asyncTarget = new AsyncTargetWrapper(fileTarget);
 
             //定义Rules for mapping loggers to target
-            config.AddRuleForAllLevels(fileTarget);
-            config.AddRuleForOneLevel(LogLevel.Error, errorFileTarget);
-            config.AddRuleForAllLevels(consoleTarget);
+            config.AddRuleForAllLevels(fileTarget);//Log文件会打印所有等级日志（Info、Error）
+            config.AddRuleForOneLevel(LogLevel.Error, errorFileTarget);//Error文件只会打印Error等级的日志
+            config.AddRuleForAllLevels(consoleTarget);//控制台会打印所有等级日志（Info、Error）
 
             //应用Config
             LogManager.Configuration = config;

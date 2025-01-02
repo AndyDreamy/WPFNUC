@@ -79,6 +79,9 @@
     <Compile Include="Converters\CPSThresholdToColorMultiConverter.cs" />
     <Compile Include="Converters\DoubleToFormatConverter.cs" />
     <Compile Include="Models\AlphaCPSData.cs" />
+    <Compile Include="Models\CommonEnums.cs" />
+    <Compile Include="Parameters\CommonParasModel.cs" />
+    <Compile Include="Parameters\ParaDataManager.cs" />
     <Compile Include="Properties\Resources.en-US.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -87,6 +90,7 @@
     <Compile Include="Servers\DataServer\AlphaCPSDataManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\AndyLogger.cs" />
+    <Compile Include="Utils\FileHelp.cs" />
     <Compile Include="Utils\PathHelper.cs" />
     <Compile Include="其他功能类\AndyCommon.cs" />
     <Compile Include="其他功能类\AndyFileRW.cs" />
