@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -969,7 +969,7 @@ namespace 核素识别仪
             timer_MeasureTime.Elapsed += Timer_MeasureTime_Elapsed;
 
             //自动读取数据、更新图表的Timer
-            timer_Auto.Interval = 1000;
+            timer_Auto.Interval = LoopTime_ms;
             timer_Auto.Elapsed += Timer_Auto_Elapsed;
 
         }
@@ -1022,6 +1022,16 @@ namespace 核素识别仪
         public System.Timers.Timer timer_Auto = new System.Timers.Timer();
 
         /// <summary>
+        /// 采集周期，单位ms
+        /// </summary>
+        public double LoopTime_ms { get; set; } = 1000;
+
+        /// <summary>
+        /// 采集周期，单位s
+        /// </summary>
+        public double LoopTime_S => LoopTime_ms / 1000;
+
+        /// <summary>
         /// ★自动运行的方法
         /// 开启定时器后，等待一个Interval后才会执行第一次
         /// </summary>
@@ -1029,7 +1039,7 @@ namespace 核素识别仪
         {
             #region 测量时间累加
 
-            Dispatcher.Invoke(new MethodInvoker(delegate { receDatas.P_measuredTime += timer_Auto.Interval / 1000; }));
+            Dispatcher.Invoke(new MethodInvoker(delegate { receDatas.P_measuredTime += LoopTime_S; }));
 
             #endregion
 
@@ -1330,7 +1340,7 @@ namespace 核素识别仪
             if (isHuoDu && !isAutoConfig)//活度计算模式打开，且这个开始测量不是自动配置中的
             {
                 //设置定时器间隔为设置的测量时间
-                timer_HuoDuAutoStop.Interval = huoDu.P_msTime_S * 1000 + timer_Auto.Interval * 0.7;//加时间是为了不要中断最后一次测量
+                timer_HuoDuAutoStop.Interval = huoDu.P_msTime_S * 1000 + LoopTime_ms * 0.7;//加时间是为了不要中断最后一次测量
 
                 //开始定时器，到时会自动停止测量
                 timer_HuoDuAutoStop.Start();

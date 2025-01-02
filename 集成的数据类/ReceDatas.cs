@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -180,7 +180,7 @@ namespace 核素识别仪.集成的数据类
 
         private double deadTime = 0;
         /// <summary>
-        /// 读回来的死时间，单位s
+        /// 读回来的累计死时间，单位s
         /// </summary>
         public double P_deadTime
         {
@@ -189,6 +189,25 @@ namespace 核素识别仪.集成的数据类
             {
                 deadTime = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("P_deadTime"));
+            }
+        }
+
+        /// <summary>
+        /// 死时间滑动平均列表，采集5次连续的死时间增量，取平均再除以采集的时间，得到实时死时间率，单位s
+        /// </summary>
+        private List<double> deadTimeList = new List<double>(5);
+
+        private double deadTimeRatio = 0;
+        /// <summary>
+        /// 死时间实时比率
+        /// </summary>
+        public double DeadTimeRatio
+        {
+            get => deadTimeRatio = 0;
+            set
+            {
+                deadTimeRatio = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DeadTimeRatio)));
             }
         }
 
@@ -533,7 +552,19 @@ namespace 核素识别仪.集成的数据类
                 deadTime += (bufferAll[m0++] & 0xFF) << 16;
                 deadTime += (bufferAll[m0++] & 0xFF) << 24;
                 P_deadTime += deadTime / 1e+09;//累加死时间
-                P_liveTime = P_measuredTime - P_deadTime;//计算活时间
+
+                //滑动平均死时间
+                if (deadTimeList.Count >= 5)
+                {
+                    deadTimeList.RemoveAt(0);
+                }
+                deadTimeList.Add(deadTime / 1e+09);
+
+                //计算实时死时间比率
+                DeadTimeRatio = deadTimeList.Average() / Instance.LoopTime_S;
+
+                //计算活时间
+                P_liveTime = P_measuredTime * (1 - DeadTimeRatio);
 
                 #endregion
             }
@@ -697,7 +728,7 @@ namespace 核素识别仪.集成的数据类
             if (countLast != 0)//如果上次计数值为0，则不以此计算cps，否则可能会出现非常大的值
             {
                 double diff = count - countLast;
-                double time = MainWindow.Instance.timer_Auto.Interval / 1000;
+                double time = Instance.LoopTime_S;
                 cps_Multi = diff / time;
             }
             //用完上次的总计数，就赋值为新的总计数
